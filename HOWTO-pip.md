@@ -10,6 +10,7 @@ pip uninstall numpy
 pip list
 pip list --outdated
 pip freeze > reqs.txt
+pip install -r requirements.txt
 pip --version
 pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U
 ```

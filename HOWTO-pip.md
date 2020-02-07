@@ -42,8 +42,7 @@ Output of pip help :
 
 # Commands
 ## help
-Pour voir la listes des commandes disponibles :
-To see all
+To see all commands
 ```
 pip help
 ```

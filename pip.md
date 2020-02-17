@@ -30,7 +30,7 @@ pip -V
 ```
 
 # Custom commands
-Update all oudated packages [source](https://stackoverflow.com/a/3452888/4530214):
+Update all oudated packages ([source](https://stackoverflow.com/a/3452888/4530214)):
 ```
 pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U
 ```
@@ -42,3 +42,6 @@ Removing all packages :
 ```
 pip freeze | xargs pip uninstall -y
 ```
+
+# What
+[*pip*](https://pip.pypa.io/en/stable/) is a command-line package manager for python packages. It is mostly used to install python packages from the [Python Package Index (PyPI)](https://pypi.org/). 

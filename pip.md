@@ -30,18 +30,15 @@ pip -V
 ```
 
 # Custom commands
-Update all oudated packages
+Update all oudated packages [source](https://stackoverflow.com/a/3452888/4530214):
 ```
 pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U
 ```
-[source](https://stackoverflow.com/a/3452888/4530214)
-
-Check if new version is avalaible
+Check if new version is avalaible :
 ```
 pip list --outdated | grep numpy
 ```
-
-Removing all packages
+Removing all packages :
 ```
 pip freeze | xargs pip uninstall -y
 ```

@@ -1,0 +1,1 @@
+This repo contains *quickstart* files, as quick-linted reminders for various tools. These are not tutorials.

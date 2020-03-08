@@ -461,8 +461,8 @@ Save and exit : CTRL+D
  - https://www.youtube.com/watch?v=8ET_gl1qAZ0
  - https://www.codeschool.com/courses/git-real
  - https://www.codeschool.com/courses/git-real-2
-
-
+ - http://onlywei.github.io/explain-git-with-d3/#commit
+ - http://marklodato.github.io/visual-git-guide/index-en.html
 
  
 

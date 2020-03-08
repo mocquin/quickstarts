@@ -236,7 +236,7 @@ git restore --staged <file> : restore changes of index to the cwd state
 ## git rebase
 ```
 git rebase -I : interactive rebase
-git rebase –onto master sha1 : fait un rebase de la branche de travail, jusqu’au sha1 exclus, et rebase sur master
+git rebase –-onto master sha1 : fait un rebase de la branche de travail, jusqu’au sha1 exclus, et rebase sur master
 git rebase -i HEAD~3 : rebase interactif sur les 3 dernier commits
 ```
 

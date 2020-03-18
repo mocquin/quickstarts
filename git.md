@@ -195,7 +195,7 @@ git log <file> : list commits concerning file
 git merge branch_name : merge branch_name on current branch
 git merge feature master : equivalent to "git checkout master" then "git merge master"
 git merge --no-ff : merge without fast-forward.
-git merge sha1 : merge every commit between HEAD and sha1
+git merge sha1 : merge every commit between HEAD and sha1 (usefull to move master up a few commits)
 git merge publisher/master : merge the master branch of the publisher remote repo to our local current branch
 git merge origin master : after fetching origin/master, will merge local master with fetched origin/master branch
 ```
@@ -235,9 +235,12 @@ git restore --staged <file> : restore changes of index to the cwd state
 
 ## git rebase
 ```
-git rebase -I : interactive rebase
+git rebase -i master : interactive rebase of current branch onto master
 git rebase –-onto master sha1 : fait un rebase de la branche de travail, jusqu’au sha1 exclus, et rebase sur master
-git rebase -i HEAD~3 : rebase interactif sur les 3 dernier commits
+git rebase -i HEAD~3 : interactive rebase the last 3 commits
+git rebase -i HEAD~3 : then use "f" or "fixup" on all but the first commit of the to merge commits
+git rebase master : rebase current branch on top of master
+git rebase master feature : equivalent to checkout feature, then rebase master
 ```
 
 ## git reflog
@@ -253,6 +256,7 @@ git reflog master@{2020.04.16} : show the reflog for master at a date
 ## git reset
 ```
 git reset –-hard : reset to last commit
+<<<<<<< HEAD
 git reset –soft HEAD^1 : moves HEAD to HEAD^1, and put differences to staged
 git reset –mixed HEAD^1 : equivalent to "git reset HEAD^1"  : moves HEAD to HEAD^1, and put differences to cwd
 git reset –hard HEAD^1 : moves HEAD to HEAD^1, and delete changes
@@ -262,6 +266,16 @@ git reset --hard origin/master : reset everthing to the server state
 
 Summary : 
 - git reset == git reset HEAD == git reset --mixed == git reset HEAD --mixed 
+=======
+git reset HEAD^1 -–soft : moves HEAD to HEAD^1, and put differences to staged
+git reset HEAD^1 -–mixed : equivalent to "git reset HEAD^1"  : moves HEAD to HEAD^1, and put differences to cwd
+git reset HEAD^1 –-hard : moves HEAD to HEAD^1, and delete changes
+git reset -p : unstage patches
+```
+
+Summary : 
+- git reset == git reset HEAD == git reset --mixed
+>>>>>>> 3a10743... fix typos and add new commands
 - git reset HEAD^1 –-soft: moves HEAD to HEAD^1, and place changes into index
 - git reset HEAD^1 --mixed : == git reset HEAD^1 : moves HEAD to HEAD^1, and place changes into cwd
 - git reset HEAD^1 -–hard : moves HEAD to HEAD^1 and delete changes

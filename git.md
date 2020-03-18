@@ -204,7 +204,7 @@ Summary :
 
 ## git rm
 ```
-git rm --cached file_name : delete file from index
+git rm --cached file_name : delete file from index (kinda like unstage)
 git rm -r --cached folder : delete folder from index
 ```
    

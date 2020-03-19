@@ -16,9 +16,12 @@ mv source target : move source to target
 mv source target : rename file 
 rm reqs.txt : delete file
 rm -rf my_dir : delete folder
+diff -rq folder1 folder2
+diff -u radiation.py "radiation copie.py"
 ```
 
 # Others
 ```
 ln -s /Volumes/usb_drive \~/Documents : create link
+find . -name '.ipynb_checkpoints' -type d -exec rm -r {} \; : delete all .ipynb_checkpoints
 ```

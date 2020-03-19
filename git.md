@@ -16,9 +16,11 @@ git checkout : check state at specific commit
 ```
 git add <file_name> : add file to repo's index  
 git add . : add all file to index  
-git add "\*.html" : add all html files to index  
-git add --all : add all untrackec files to index  
-git add -p <file_name> : add only patch/chunk of filename for commit  
+git add "*.html" : add all html files to index  
+git add --all : add all untracked files to index (same as -A)
+git add -u : add updates for tracked files
+git add -A : add all changes (new files and modified files)
+git add -p <file_name> : add only patch/chunk of filename for commit
 
     y stage this hunk for the next commit
     n do not stage this hunk for the next commit
@@ -46,6 +48,7 @@ git blame <filename> : list commits concerning a file
 ```
 git branch : list all branches with * on current branch
 git branch -r : list remote tracked branches
+git branch -a : list all branches (local and remote)
 git branch branch_name : create branch called branch_name
 git branch –d branch_name : delete branch with check for unmerged commits
 git branch –D branch_name : delete branch
@@ -70,6 +73,13 @@ Pulls/pushes only concern current branch, not all tracked branches.
 ## git config 
 ```
 git config --list : list configs
+git config --global -e : edit global config file
+git config --global user.name "toto28" : to setup name
+git config --global user.email toto28@me.com : to setup mail
+git config --global core.editor "code -w": to setup default editor ("code" for vscode), with -w or --wait to specify git to wait until the editor is closed
+git config --global --get diff.tool : check if a diff tool is configured
+git config --global alias.hist "log --oneline --graph --all --decorate" : create a "git hist" alias
+git config --global fetch.prune true : activate auto prune when fetching (git fetch origin is now equivalent to git fetch origin --prune)
 ```
 
 ## git checkout
@@ -79,32 +89,48 @@ git checkout –b branch_name : create new branch from HEAD, and set on new bran
 git checkout branch_name : set on branch_name
 git checkout master : se positionner sur le commit le plus récent = branche principale
 git checkout SHA file_name : reset file_name state of commit SHA
+git checkout -b feature-2 origin/feature-2 : create a local branch to track remote branch from origin
 git checkout –file : reset file in cwd from index
+git checkout -- file : reset file in cwd from last commit
 git checkout –p : reset chunks in cwd from index
 git checkout -b new_branch existing_branch : create new_branch from existing branch, and set on new branch
 ```
 
 Usually, HEAD points to a branch's tip, often master. git checkout only moves HEAD to the pointer being checkedout. When checking out a specific commit, head is detached (detached-head). 
     
-## git cherrypick
+## git cherry-pick
 ```
 git cherry-pick SHA : apply SHA commit to current HEAD
+git cherry-pick --abort : abort current cherry-picking
+git cherry-pick --continue : commit conflict resolution changes
 ```
 
 ## git clean
 Remove untracked files from the working tree
+```
+git clean -d -f -x : delete directories, force deletion without confirmation, -x to delete also directories in the ignore list
+git clean -n : (or --dry-run) dry run clean (to check what would be deleted)
+git clean -fd : delete directories
+git clean -fX : delete ignored files
+git clean -fx : delete ignored and non-ignored files
+git clean -X : remove only files ignored by git
+git clean -i : interactive clean
+```
     
 ## git clone
 ```
 git clone https_github_link : clone github repo in current dir
+git clone https_github_link new_name : clone repo with a custom new_name folder
 ```
 
 ## git commit
 ```
 git commit : create commit (then type :wq for :write/quit in vi)
 git commit –m "message" : create commit with message
+git commit my.file -m "blah blah" : add and commit one file
 git commit –a –m "update file" : create commit on indexed files only
 git commit –a : commit already indexed files (ie updates allready tracked files but doesn't add files to index)
+git commit -am "commit message" : add and commit
 git commit --amend : open editor to change commit message
 git commit --amend –m "new message" : change last commit's message
 git commit -m "Title" -m "Description..." : commit with message and description
@@ -115,17 +141,30 @@ See also [here](https://stackoverflow.com/questions/1085162/commit-only-part-of-
 
 ## git diff
 ```
-git diff : diff from last commit
-git diff –cached : diff between current index and last commit
+git diff : diff between cwd and staging area (cwd vs index)
+git diff HEAD : diff between cwd and last commit (cwd vs repo)
+git diff --staged HEAD : diff between staging area and last commit (index vs repo)
+git diff -- filename : diff between cwd and staging area (cwd vs index) for filename
+git diff HEAD HEAD^ : diff between last commit and second-to-last commit
+git diff –-cached : diff between current index and last commit - allows to check what is about to be commited
+git diff –-staged : synonym for --cached
+git diff -p : equivalent to git diff -u or git diff --patch : diffs are reprensented with patches
 git diff tag_name HEAD : diff between commit tag_name and last commit
 git diff file_name : diff from last commit for file_name
-git diff --staged : diff between staged and last commit - allows to check what is about to be commited
+git diff --staged : diff between staged and last commit 
 git diff sha1 sha2 : diff between 2 commits
-git diff HEAD : diff between HEAD and cwd
 git diff master..test : diff between 2 branches
 git diff master test : diff between 2 branches
 git diff master...test : diff between the common parent of master and test branch
 git diff --stat : only display stats, not patches
+```
+
+## git difftool
+same as git diff, but with the git difftool
+
+## git fetch
+```
+git fetch origin master : fetch changes of master branch from origin remote
 ```
 
 ## git init
@@ -138,12 +177,13 @@ git init --bare : bare repos only contains the historic, not the files themselve
 ```
 git log : list all commits
 git log -p : list commits as patches
-git log --stat –summary : summup of each commit
+git log --stat –-summary : summup of each commit
 git log -n 2 : list last 2 commits
 git log --oneline : display commits on one line
 git log -p file_name : list commits concerning file_name
 git log --stat : list file names and number of lines commited
 git log --oneline --abbrev-commit --all --graph --decorate –color
+git log --oneline -- <filname> : oneline log for file
 git log --author="<pattern>" : display commits made by author
 git log --grep="<pattern>" : display commits with pattern in commit's message
 git log <since>..<until> : list commits between the 2 revisions
@@ -157,55 +197,86 @@ git merge feature master : equivalent to "git checkout master" then "git merge m
 git merge --no-ff : merge without fast-forward.
 git merge sha1 : merge every commit between HEAD and sha1
 git merge publisher/master : merge the master branch of the publisher remote repo to our local current branch
+git merge origin master : after fetching origin/master, will merge local master with fetched origin/master branch
+```
+## git mergetool
+same as merge, but with the merge tool
+in MERGING state, `git mergetool`, resolve conflicts, and then commit "resolving merge"
+
+## git mv
+```
+git mv file new_name : rename the file using git, and stage the change 
 ```
 
 ## git push
 ```
-git push origin master : send commit in master branch of remote origin
-git push --set-upstream origin master : 
-git push origin master : envoi mes modifs dans la branche master de mon remote origin
-git push [nom_depot] [branche] : push sur la branche du dépôt
+git push origin master : send commits in master branch of remote origin
+git push --set-upstream origin master : equivalent to -u : push and set tracking reference for branch master on remote origin (check after with remote -v)
+git push repo branch : push branch on repo
 git push --force origin feature-branch : overrides origin/feature-branch with local feature-branch
-git push origin feature:feature : push une branche sans la checkout (ici, push feature sur origin/feature)
-git push origin --delete feature : supprime la branche feature du remote origin
+git push origin feature:feature : push a branch without checking it out (here, push feature onto origin/feature)
+git push --delete origin feature : delete feature branch from remote origin
 git push --tags : push, including tags
+git push --delete origin tagname : delete from remote
 ```
 
 ## git pull
 ```
 git pull origin master : pull commits from master branch of origin server
 git pull –-rebase : fetch then rebase (as opposed to pull that fetch then merge)
+git pull --rebase origin master : equivalent to git pull --rebase
 ``` 
-  
+
+## git restore 
+```
+git restore <file> : restore changes in file compared to last commit
+git restore --staged <file> : restore changes of index to the cwd state
+```
+
 ## git rebase
 ```
 git rebase -I : interactive rebase
 git rebase –onto master sha1 : fait un rebase de la branche de travail, jusqu’au sha1 exclus, et rebase sur master
 git rebase -i HEAD~3 : rebase interactif sur les 3 dernier commits
 ```
- 
+
+## git reflog
+```
+git reflog : show full log of coommit
+git reflog HEAD@{20} : show the reflog as when HEAD was at HEAD{20}
+git reflog HEAD@{3.days.ago} : show the reflog as when HEAD was 3 days ago
+git reflog master@{3.days.ago} : show the reflog for master as was 3 days ago
+git reflog master@{2020.04.16} : show the reflog for master at a date
+```
+
+
 ## git reset
 ```
 git reset –-hard : reset to last commit
 git reset –soft HEAD^1 : moves HEAD to HEAD^1, and put differences to staged
 git reset –mixed HEAD^1 : equivalent to "git reset HEAD^1"  : moves HEAD to HEAD^1, and put differences to cwd
 git reset –hard HEAD^1 : moves HEAD to HEAD^1, and delete changes
+git reset -p : unstage patches
+git reset --hard origin/master : reset everthing to the server state
 ```
 
 Summary : 
-- git reset == git reset HEAD == git reset --mixed
-- git reset –soft HEAD^1 : moves HEAD to HEAD^1, and place changes into index
-- git reset –mixed HEAD^1 : == git reset HEAD^1 : moves HEAD to HEAD^1, and place changes into cwd
-- git reset –hard HEAD^1 : moves HEAD to HEAD^1 and delete changes
+- git reset == git reset HEAD == git reset --mixed == git reset HEAD --mixed 
+- git reset HEAD^1 –-soft: moves HEAD to HEAD^1, and place changes into index
+- git reset HEAD^1 --mixed : == git reset HEAD^1 : moves HEAD to HEAD^1, and place changes into cwd
+- git reset HEAD^1 -–hard : moves HEAD to HEAD^1 and delete changes
 - git reset file.py : delete file.py from index, to match state of last commit
 - git reset --merge SHA_before_commit : cancel merge commit
 - git reset -i HEAD^2 --preserve-merges : interactive rebase on last 2 commits
- 
+
+To hard reset a file : `git checkout HEAD -- my-file.txt`
+
 
 ## git rm
 ```
-git rm --cached file_name : delete file from index (kinda like unstage)
+git rm --cached file_name : delete/remove file from index (kinda like unstage/untrack)
 git rm -r --cached folder : delete folder from index
+git rm file : delete file using git, and add change to index
 ```
    
 ## git remote
@@ -216,7 +287,7 @@ git remote add origin https://my/repo : add a repo as remote
 git remote add publisher https://publisher.com/book.git : add a remote repo (git folder) called publisher
 git remote add [name] [url] : add a remote repo
 git remote rename old_name new_name : rename branch
-git remote rm nom : remove remote repo
+git remote rm repo : remove remote repo
 ```
     
 ## git revert 
@@ -224,6 +295,7 @@ git remote rm nom : remove remote repo
 git revert SHA : apply reverse effect of commit SHA (and places it in a new commit)
 git revert : apply reverse of last commit (and place it in a new commit)
 git revert –e == git revert –edit == git revert : open text editor to add message to revert commit
+git revert HEAD^ : create a new that's the inverse of the last commit before HEAD (second-to-last)
 git rever –no-edit : add no message to revert
 git revert –n –no-commit : apply reverse commit only to cwd and index, but not in a commit
 git revert master~5..master~2 : revert all commits from ~5 to ~2 included.
@@ -232,48 +304,55 @@ git revert master~5..master~2 : revert all commits from ~5 to ~2 included.
 ## git show
 ```
 git show SHA : affiche le détail du commit SHA
-git show HEAD : show du dernier commit de la branche actuelle
+git show HEAD : show HEAD commit
 git show HEAD^ : show du parent du dernier commit
 git show <branchname> : show du dernier commit de la branche
+git show : equivalent to git show HEAD
 ```
 
 ## git stash
 ```
 git stash : place content of cwd in top of stash
-git stash apply [stash@{X}] -index : apply last stash content if no stash is providded, else apply stash number X.
-git stash apply [stash@{X}] -index : also reapply index content
-git stash pop [stash@{X}] : apply and delete last stash
+git stash apply stash@{X} -index : apply last stash content if no stash is providded, else apply stash number X.
+git stash apply stash@{X} -index : also reapply index content
+git stash pop stash@{X} : apply and delete last stash
 git stash list : list stashes
-git stash drop [stash@{X}] : delete stash
+git stash drop stash@{X} : delete stash
+git stash clear : clear all stash content
 git stash branch stash@{0} : create branch based on stash
-git stash show [stash@{X}] -p : to see the stash content as patches
+git stash show stash@{X} -p : to see the stash content as patches
 git stash save "message" -u : to add a messsage to stash, -u to stash untracked files
 ```
 
 ## git status
 ```
 git status : give current state of cwd compared to staging area
+git status -s : short version of git status
 ```
 
 ## git tag
 ```
 git tag 1.0.0 SHA : create a tag ("version") on commit SHA
 git tag -d tagname : delete a tag
-By default, tags are not pushed when pushing; use git push --tags to push them.
+git tag tagname : create "ligth" tag on current commit
+git tag -a tagname -m "message": create "annotated" tag on current commit, with message
 ```
+To delete a tag from remote : `git push --delete origin tagname`
+By default, tags are not pushed when ; use `git push --tags` to push them.
 
 # Usefull refs
 
 ## git commands
 ```
 git ls-tree -r master --name-only : list tracked files
+git ls-files : list tracked files
 git log --oneline --decorate --all --graph
 ```
 
 ## Upload/clone project to Github 
  - Create a repo on github
  - Copy link of this repo
- - Add distant repo to local repo : git remote add origin <url>
+ - Add distant repo to local repo : git remote add origin url
  - Check these repo : git remote -v
  - Commit : git push -u origin master
 OR
@@ -289,6 +368,7 @@ OR
 The hidden file '.gitignore' contains the file list to be ignored by git. This file can be tracked by the repo just like any other file.  
 Use '\*.tmp' to ignore all files ending in '.tmp'.  
 Use 'tmp/*' to ignore all content of dir 'tmp/'.  
+Use 'tmp' to ignore the tmp folder
 
 ## git config
 The git config file is located in the home dir. It is a hidden file (CMD+fn+MAJ+; to display hiddenf file on Azerty/MAC OS).
@@ -328,6 +408,29 @@ git config --global color.ui true
 alias gg='git log --oneline --abbrev-commit --all --graph --decorate --color'
 git config --global alias.graph "log --graph --oneline –decorate=short"
 ```
+
+### editor
+```
+git config --global core.editor "command to launch" : create a command to launch editor for git
+```
+
+### merge tools
+To setup a merge tool :
+follow : 
+```
+git config --global merge.tool p4merge : create a tool to merge called p4merge
+git config --global mergetool.p4merge.path "path_to_p4merge.exe" : tell git where the tool is located
+git config mergetool.prompt false : so git doesn't ask every time to confirm to open mergetool
+```
+### diff tool
+then to setup a diff tool : 
+```
+git config --global diff.tool p4merge : create a tool to diff called p4merge
+git config --global difftool.p4merge.path "path_to_p4merge.exe" : tell git where the tool is located
+git config difftool.prompt false : so git doesn't ask every time to confirm to open difftool
+```
+finaly, check with git config -e
+
 
 ## origin
 origin is the default name from which a repo is cloned
@@ -415,19 +518,33 @@ Index is truly a file that keeps track of the file changes of the 3 areas : work
 When switching branch from master to feature with a checkout, git first moves the HEAD to the feature ref. That ref is a pointer to the last commit of that branch, which is a commit object, pointing to a tree object and blobs objects (files in a given state). Then, git updates the content of the .git/index file, with for each file, a last update date, and a SHA for the wdir, a SHA for the staging area, and a SHA for the repo. Finally, git will change the wdir content to match that of the commit HEAD is pointing to. Hence, after a checkout, all files has the same content : in the wdir, in the index where the 3 areas have the same checksums for all files, and the repo.
 When a file is changed, git first keeps track of that change in the index, where it creates a new checksum for that file for the wdir area, and compare that checksum to that of the staging area of the index for that file. A git status will so tell us that there are changes that are not staged. Using git add will add this change to the staging area in the index. Then git creates a new blob object to match this new file content. At this point, there is a new blob object in the repo, but it isn’t attributed to any tree/commit object. A git status will then tell us that there are changes that are about to be commited. A git commit will then : (1)create a new commit object and a new tree object, that points to the new file blob (and the other file blobs that were not changed). (2) Move the feature ref pointer to the new commit (3) update the repo in the index (then all the area of the index are the same again).
 
+
+## miroring a repo
+```
+git clone --bare https://github.com/exampleuser/old-repository.git
+cd old-repository.git
+git push --mirror https://github.com/exampleuser/new-repository.git
+cd ..
+rm -rf old-repository.git
+```
+
 # Others refs
 
 ## quickstart VI/VIM
-delete character : x
-write then quit : :wq
-insert mode : i
-exit : :q!
+ - delete character : x
+ - write then quit : :wq
+ - insert mode : i
+ - exit : :q!
+ - delete whole line : d+d
+ - replace : r + NEWCHAR
+ - save : ws
+ - search word in text : ?word
     
 ## quickstart Cat
 Save and exit : CTRL+D
 
 
-# ressources
+# Ressources
  - https://git-scm.com/book/en/v2
  - http://ndpsoftware.com/git-cheatsheet.html#loc=remote_repo;
  - https://longair.net/blog/2009/04/16/git-fetch-and-merge/
@@ -461,8 +578,86 @@ Save and exit : CTRL+D
  - https://www.youtube.com/watch?v=8ET_gl1qAZ0
  - https://www.codeschool.com/courses/git-real
  - https://www.codeschool.com/courses/git-real-2
- - http://onlywei.github.io/explain-git-with-d3/#commit
  - http://marklodato.github.io/visual-git-guide/index-en.html
 
+SO : 
+
+Articles on topics : 
+
+Interactive visual representation : 
+ - http://www.ndpsoftware.com/git-cheatsheet.html
+ - http://onlywei.github.io/explain-git-with-d3/#commit
+ - https://learngitbranching.js.org/?locale=fr_FR
+ - http://git-school.github.io/visualizing-git/
+
+Video Tutorials : 
+ - udemy
  
+ 
+
+# Learning/explaning git
+## First, on a local project, on one branch :
+Commands to review : 
+ - git config 
+    - git config --global user.name "mocquin" : to setup name
+    - git config --global user.email mocquin@me.com : to setup mail
+ - git add
+ - git checkout
+ - git commit
+ - git diff
+ - git init
+ - git log
+ - git rebase
+ - git reset
+ - git rm
+ - git show
+ - git status
+ - git rebase
+Concepts to explain : 
+ - CWD / index / .git
+ - .gitignore
+ - master, HEAD
+ - commit, SHA
+ - .git folder
+    - config file
+    - refs
+    
+## amending 
+Amending actually rewrite the last commit to match the current index state.
+Only ammend on local unpushed branch
+ - To change only the message : with an empty index : `git commit --amend -m "new message"`
+ - To add other changes : make the changes, add the file to index : `git commit --amend -m "new message"`
+ 
+## reflog
+
+## rebasing
+    
+## reset and revert
+never reset server branches
+if unwanted commit already on server, use a revert
+clean before pushing
+only push when finished 
+differences between reset and revert
+when to use which
+    
+## with branches
+
+Merging : 
+ - happy path with ff
+ - happy path without ff
+ - automatic merge
+ - merge with conflicts
+ 
+Rebasing : 
+ - happy rebase (empty)
+ - happy rebase
+ - rebase with conflicts
+    
+## With a remote
+a remote is just another git folder with a CWD/index/.git
+
+basic setup for :
+ - github
+ - bitbucket
+ - gitlab
 

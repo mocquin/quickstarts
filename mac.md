@@ -1,0 +1,1 @@
+Show hidden files : CMD+fn+MAJ+; to display hiddenf file on Azerty/MAC OS

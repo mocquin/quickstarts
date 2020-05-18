@@ -1,5 +1,3 @@
-
-
 # Quickstart 
  - [Installation](https://ipython.readthedocs.io/en/stable/install/index.html)
  - [Tutorial](https://ipython.readthedocs.io/en/stable/interactive/index.html)

@@ -1,13 +1,15 @@
 # Version, backend
+```python
 matplotlib.__version__
 matplotlib.get_backend() : returns rcParams['backend']
 matplotlib.use('nbagg') : use backend
 plt.ion()/off() : activate/deactivate immediately display objects 
 %matplotlib backend_name : set backend to nbagg, and plt.ion()
+```
 
-matplotlib.rcsetup.interactive_bk : list interactive backends
-matplotlib.rcsetup.non_interactive_bk : list non interactiv backends
-matplotlib.rcsetup.all_backends : list all backends
+ - `matplotlib.rcsetup.interactive_bk` : list interactive backends
+ - `matplotlib.rcsetup.non_interactive_bk` : list non interactiv backends
+ - `matplotlib.rcsetup.all_backends` : list all backends
  
 # rcParams, style sheet
 matplotlib.matplotlib_fname() : rc file path
@@ -19,15 +21,105 @@ mpl.rc('lines', linewidth=2, linestyle='-.') : dynamic change of rc file
 plt.style.use('ggplot') : use ggplot style
 plt.style.use('url to style sheet') : use style sheet at url
 matplotlib.get_configdir() : config dir
-style.use(<style-name>) : use the <style-name>.mplstyle file of the folder mpl_configdir/stylelib
+style.use(style-name) : use the style-name.mplstyle file of the folder mpl_configdir/stylelib
 plt.style.available : list available styles
 
  
 # axes creation
-fig, axes = plt.subplots(nrows=2, ncols=2) : where axes is a numpy array of Axes objects
+ - method 1 : 
+```python
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1) # make a blank plotting area'
+```
+ - method 2 : 
+```python
 fig, ax = plt.subplots()
+```
+ - method 3 :
+```python
+fig, axes = plt.subplots(nrows=2, ncols=2) : where axes is a numpy array of Axes objects
+```
+
+# plot and lines
+```python
+line1, = ax.plot(x, np.sin(x), label='1st plot') 
+print(ax.lines)
+```
+
+# main attributes 
+`fig.axes`: list of axes
+`ax.figure`: parent figure of ax
+`ax.xaxis`: XAxis of ax
+`ax.xaxis.axes`: ax
+`ax.xaxis.figure`: ax's figure
+`ax.lines`: list of Line2D objects
+
+## Figure attributes
+ - fig.axes 	: A list of Axes instances (includes Subplot)
+ - fig.patch 	: The Rectangle background
+ - fig.images 	: A list of FigureImages patches - useful for raw pixel display
+ - fig.legends 	: A list of Figure Legend instances (different from Axes.legends)
+ - fig.lines 	: A list of Figure Line2D instances (rarely used, see Axes.lines)
+ - fig.patches 	: A list of Figure patches (rarely used, see Axes.patches)
+ - fig.texts 	: A list Figure Text instances
+
+## Axes attributes 	
+ - ax.artists 	  : A list of Artist instances
+ - ax.patch 	  : Rectangle instance for Axes background
+ - ax.collections : A list of Collection instances
+ - ax.images 	  : A list of AxesImage
+ - ax.legends 	  : A list of Legend instances
+ - ax.lines 	  : A list of Line2D instances
+ - ax.patches 	  : A list of Patch instances
+ - ax.texts 	  : A list of Text instances
+ - ax.xaxis 	  : matplotlib.axis.XAxis instance
+ - ax.yaxis 	  : matplotlib.axis.YAxis instance
+
+Axes helper functions : 
+ - ax.annotate 	: adds object Annotate 	         to ax.texts
+ - ax.bar 	    : adds object Rectangle 	     to ax.patches
+ - ax.errorbar 	: adds object Line2D & Rectangle to ax.lines & ax.patches
+ - ax.fill 	    : adds object Polygon 	         to ax.patches
+ - ax.hist 	    : adds object Rectangle 	     to ax.patches
+ - ax.imshow 	: adds object AxesImage 	     to ax.images
+ - ax.legend 	: adds object Legend 	         to ax.legends
+ - ax.plot   	: adds object Line2D 	         to ax.lines
+ - ax.scatter 	: adds object PathCollection 	 to ax.collections
+ - ax.text 	    : adds object Text 	             to ax.texts
+
+## Axis attributes
+ - Axis.label 	   : A Text instance for axis label
+ - Axis.majorTicks : A list of Tick instances for major ticks.
+ - Axis.minorTicks : A list of Tick instances for minor ticks
+
+# containers artists
+ - Figure
+ - Axes
+ - Axis
+ - Tick
+ 
+see [this](https://res.cloudinary.com/practicaldev/image/fetch/s--KMJNInQX--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/la33f9zwg65hqjz9j4ee.png)
 
 
+# Artists patches 
+```python
+# rectangle
+axes.add_artist(
+    patches.Rectangle((0.2, 0.2), 0.4, 0.3,
+                      edgecolor = 'black', facecolor = 'orange',
+                      fill = True, hatch = '/', linestyle = 'dashed',
+                      linewidth = 3, zorder = 1))
+# Circle
+axes.add_artist(
+    patches.Circle((0.5, 0.6), 0.15, color = 'cyan', zorder = 2))
+# Ellipse
+axes.add_artist(
+    patches.Ellipse((0.2, 0.7), 0.3, 0.2, 45,
+                    edgecolor = 'magenta', facecolor = 'yellow', zorder = 2))
+# Arc
+axes.add_artist(
+    patches.Arc((0.7, 0.7), 0.3, 0.2, 20, 0, 120, color = 'red', linewidth = 5))
+```
  
 figure():
 -          figsize=plt.figaspect(2.0)
@@ -47,6 +139,7 @@ ax.set(xlim=[0.5, 4.5], ylim=[-2, 8], title='An Example Axes',
 plt.show()
  
 # DATA argument
+```python
 x = np.linspace(0, 10, 200)
 data_obj = {'x': x,
             'y1': 2 * x + 1,
@@ -57,18 +150,19 @@ fig, ax = plt.subplots()
 ax.fill_between('x', 'y1', 'y2', color='yellow', data=data_obj)
 # Plot the "centerline" with `plot`
 ax.plot('x', 'mean', color='black', data=data_obj)
+```
  
- 
- 
-#Overlapping colorbar
+#O verlapping colorbar
+```python
 cax = fig.add_axes([0.27, 0.8, 0.5, 0.05])
 im = ax.imshow(data, cmap='gist_earth')
 fig.colorbar(im, cax=cax, orientation='horizontal')
- 
+```
 
  
  
 # axis
+```python
 xmin, xmax, ymin, ymax = ax.axis()
  
 ax.axis([xmin, xmax, ymin, ymax])
@@ -92,23 +186,19 @@ fig.tight_layout()
  
 # spines
 ax.spines['top'].set_visible(False)
- 
+ ```
  
 ipympl built on top of ipywidgets, and set with %matplotlib widget
  
-https://matplotlib.org/gallery/#embedding-matplotlib-in-graphical-user-interfaces
- 
-https://github.com/matplotlib/GettingStarted/blob/master/notebooks/06-interactive.ipynb
  
  
-https://github.com/matplotlib/matplotlib/blob/0ea20132e306c4607617b61dca7143ea34d30ad0/lib/matplotlib/units.py
-https://github.com/matplotlib/matplotlib/blob/e70c9d29a359302ed4046c26a74bf566702e1b6c/lib/matplotlib/tests/test_units.py
-https://github.com/matplotlib/matplotlib/blob/bfda3a47834283436f20a1c79bd1199e2d774201/examples/units/evans_test.py
-https://github.com/hgrecco/pint/blob/master/pint/matplotlib.py
- 
- 
-    
-https://stackoverflow.com/questions/21271195/can-i-use-matplotlib-units-to-switch-between-the-units-displayed-on-a-graph
- 
-https://github.com/yt-project/unyt
- 
+# Ressources 
+ - https://matplotlib.org/gallery/#embedding-matplotlib-in-graphical-user-interfaces 
+ - https://github.com/matplotlib/GettingStarted/blob/master/notebooks/06-interactive.ipynb
+ - https://github.com/matplotlib/matplotlib/blob/0ea20132e306c4607617b61dca7143ea34d30ad0/lib/matplotlib/units.py
+ - https://github.com/matplotlib/matplotlib/blob/e70c9d29a359302ed4046c26a74bf566702e1b6c/lib/matplotlib/tests/test_units.py
+ - https://github.com/matplotlib/matplotlib/blob/bfda3a47834283436f20a1c79bd1199e2d774201/examples/units/evans_test.py
+ - https://github.com/hgrecco/pint/blob/master/pint/matplotlib.py 
+ - https://stackoverflow.com/questions/21271195/can-i-use-matplotlib-units-to-switch-between-the-units-displayed-on-a-graph
+ - https://github.com/yt-project/unyt
+ - https://dev.to/skotaro/artist-in-matplotlib---something-i-wanted-to-know-before-spending-tremendous-hours-on-googling-how-tos--31oo

@@ -22,6 +22,7 @@ rm -r : delete folder
 rm -rf my_dir : delete folder, recursilvely and with no confirmation
 diff -rq folder1 folder2
 diff -u radiation.py "radiation copie.py"
+rm -rfv * : remove all content from current folder
 ```
 
 # Others

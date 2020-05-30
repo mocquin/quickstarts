@@ -192,6 +192,73 @@ ipympl built on top of ipywidgets, and set with %matplotlib widget
  
  
  
+
+https://towardsdatascience.com/plt-xxx-or-ax-xxx-that-is-the-question-in-matplotlib-8580acf42f44
+ax.get_figure()
+https://matplotlib.org/3.1.1/gallery/style_sheets/style_sheets_reference.html
+
+line = Line2D(x, y)
+ax.add_line(line)
+
+https://towardsdatascience.com/the-many-ways-to-call-axes-in-matplotlib-2667a7b06e06
+https://github.com/Perishleaf/data-visualisation-scripts/blob/master/matplotlib_init_fig_ax/matplotlib_init_fig_ax.ipynb
+
+
+# Create a figure
+fig = plt.figure()# Add a subplot
+ax = fig.add_subplot()
+# Equivalent method
+ax = fig.add_subplot(111)# Another equivalent but more general method
+ax = fig.add_subplot(1, 1, 1)
+
+# Create a figure
+fig = plt.figure()
+# Create a subplot
+ax = fig.subplots()# Equivalent method
+ax = fig.subplots(1, 1)
+
+
+# Create a figure
+fig = plt.figure()# Add a subplot 
+ax = fig.add_axes([0, 0, 0.78, 0.78])
+
+
+
+# Creates just a figure and only one subplot
+ax = plt.subplot()# Equivalent method
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+
+# Creates just a figure and only one subplot
+fig, ax = plt.subplots()# Equivalent method
+fig = plt.figure()
+ax = fig.subplots(1, 1)
+
+
+
+fig = plt.figure()
+ax1 = fig.add_subplot(221)
+ax2 = fig.add_subplot(222)
+ax3 = fig.add_subplot(223)
+ax4 = fig.add_subplot(224)
+
+fig = plt.figure()
+axs = fig.subplots(nrows=2, ncols=2)
+
+fig = plt.figure()
+((ax1, ax2), (ax3, ax4)) = fig.subplots(nrows=2, ncols=2)
+
+
+
+fig = plt.figure()
+ax1 = fig.add_axes([0, 0.6, 0.5, 0.5])
+ax2 = fig.add_axes([0.6, 0.6, 0.5, 0.5])
+ax3 = fig.add_axes([0, 0, 0.5, 0.5])
+ax4 = fig.add_axes([0.6, 0, 0.5, 0.5])
+
+fig, (ax0, ax1) = plt.subplots(ncols=2, constrained_layout=True)
+ 
+ 
 # Ressources 
  - https://matplotlib.org/gallery/#embedding-matplotlib-in-graphical-user-interfaces 
  - https://github.com/matplotlib/GettingStarted/blob/master/notebooks/06-interactive.ipynb

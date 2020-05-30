@@ -553,6 +553,8 @@ rm -rf old-repository.git
  - replace : r + NEWCHAR
  - save : ws
  - search word in text : ?word
+ - cut : v to select char, V to select line, d to cut, p to paste
+ - copy : v to select char, V to select line, y to cut, p to paste
     
 ## quickstart Cat
 Save and exit : CTRL+D

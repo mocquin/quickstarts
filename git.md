@@ -256,17 +256,6 @@ git reflog master@{2020.04.16} : show the reflog for master at a date
 ## git reset
 ```
 git reset –-hard : reset to last commit
-<<<<<<< HEAD
-git reset –soft HEAD^1 : moves HEAD to HEAD^1, and put differences to staged
-git reset –mixed HEAD^1 : equivalent to "git reset HEAD^1"  : moves HEAD to HEAD^1, and put differences to cwd
-git reset –hard HEAD^1 : moves HEAD to HEAD^1, and delete changes
-git reset -p : unstage patches
-git reset --hard origin/master : reset everthing to the server state
-```
-
-Summary : 
-- git reset == git reset HEAD == git reset --mixed == git reset HEAD --mixed 
-=======
 git reset HEAD^1 -–soft : moves HEAD to HEAD^1, and put differences to staged
 git reset HEAD^1 -–mixed : equivalent to "git reset HEAD^1"  : moves HEAD to HEAD^1, and put differences to cwd
 git reset HEAD^1 –-hard : moves HEAD to HEAD^1, and delete changes
@@ -275,7 +264,6 @@ git reset -p : unstage patches
 
 Summary : 
 - git reset == git reset HEAD == git reset --mixed
->>>>>>> 3a10743... fix typos and add new commands
 - git reset HEAD^1 –-soft: moves HEAD to HEAD^1, and place changes into index
 - git reset HEAD^1 --mixed : == git reset HEAD^1 : moves HEAD to HEAD^1, and place changes into cwd
 - git reset HEAD^1 -–hard : moves HEAD to HEAD^1 and delete changes

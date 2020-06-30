@@ -53,6 +53,25 @@
  - alternation : `foo|bar|baz` (tested from left to right)
  - set or remove flag on capturing group : `(?<set_flags>-<remove_flags>:<regex>)`
  
+# Functions
+Searching functions : 
+ - `re.search()` : Scans a string for a regex match
+ - `re.match()` : Looks for a regex match at the beginning of a string
+ - `re.fullmatch()` : Looks for a regex match on an entire string
+ - `re.findall()` : Returns a list of all regex matches in a string
+ - `re.finditer()` : Returns an iterator that yields regex matches from a string
+
+Substitution functions : 
+ - `re.sub(<regex>, <repl>, <string>, count=0, flags=0)` : Scans a string for regex matches, replaces the matching portions of the string with the specified replacement string, and returns the result
+ - `re.subn(<regex>, <repl>, <string>, count=0, flags=0)` : Behaves just like re.sub() but also returns information regarding the number of substitutions made
+Count is the number of max replacements
+ 
+Utility functions : 
+ - `re.split(<regex>, <string>, maxsplit=0, flags=0)` : Splits a string into substrings using a regex as a delimiter
+ - `re.escape()` : Escapes characters in a regex
+ 
+Compiled Regex objects : 
+ - `re.compile(<regex>, flags=0)`: compile a regex expression into a compiled regex object
  
 # Usefull Pattern
  - single decimal digit : `[0-9]`
@@ -100,6 +119,10 @@
  - named conditional matching : `(?P<ch>\W)?foo(?(ch)(?P=ch)|)`  : `(?P<ch>\W)` A single non-word character, captured in a group named ch `(?P<ch>\W)?` Zero or one occurrences of the above `foo` The literal string 'foo', `(?(ch)(?P=ch)|)` The contents of the group named ch if it exists, or the empty string if it doesn’t
  - look ahead : doesn't consume the following chars : `foo(?=[a-z])`in `foobar` matches `foo`, not `foob`
  - alternation : `(foo|bar|baz)+', 'barbazfoo')` matches `barbazfoo`
+ - compiled regex : `re_obj = re.compile(<regex>, <flags>)` then `result = re.search(re_obj, <string>)`is equivalent to `re_obj = re.compile(<regex>, <flags>)` then `result = re_obj.search(<string>)`is equivalent to `result = re.search(<regex>, <string>, <flags>)
+`
+
+
 
 
 # Flags
@@ -121,4 +144,5 @@ To use as : `re.search('^bar', 'FOO\nBAR\nBAZ', re.I|re.M)`
 
 # Ressources 
 - https://realpython.com/regex-python/
+- https://realpython.com/regex-python-part-2/
 - https://regex101.com/

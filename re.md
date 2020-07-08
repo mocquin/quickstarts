@@ -1,4 +1,3 @@
-
 # Usage
  - `m = re.search("123", "toto123")` : return a truthy match object giving the first occurence, None otherwise
  - `m.groups()`: returns a tuple of matched groups
@@ -52,27 +51,8 @@
  - comment : `(?#...)`
  - alternation : `foo|bar|baz` (tested from left to right)
  - set or remove flag on capturing group : `(?<set_flags>-<remove_flags>:<regex>)`
- 
-# Functions
-Searching functions : 
- - `re.search()` : Scans a string for a regex match
- - `re.match()` : Looks for a regex match at the beginning of a string
- - `re.fullmatch()` : Looks for a regex match on an entire string
- - `re.findall()` : Returns a list of all regex matches in a string
- - `re.finditer()` : Returns an iterator that yields regex matches from a string
 
-Substitution functions : 
- - `re.sub(<regex>, <repl>, <string>, count=0, flags=0)` : Scans a string for regex matches, replaces the matching portions of the string with the specified replacement string, and returns the result
- - `re.subn(<regex>, <repl>, <string>, count=0, flags=0)` : Behaves just like re.sub() but also returns information regarding the number of substitutions made
-Count is the number of max replacements
- 
-Utility functions : 
- - `re.split(<regex>, <string>, maxsplit=0, flags=0)` : Splits a string into substrings using a regex as a delimiter
- - `re.escape()` : Escapes characters in a regex
- 
-Compiled Regex objects : 
- - `re.compile(<regex>, flags=0)`: compile a regex expression into a compiled regex object
- 
+
 # Usefull Pattern
  - single decimal digit : `[0-9]`
  - any non numerical character : `[^0-9]`
@@ -100,6 +80,7 @@ Compiled Regex objects :
  - grouping : `(bar)`, same as `bar`
  - quantified grouping : `(bar)*` matches `barbar`
 
+
 # Examples
  - `1.3` matches`123`
  - `abc[def]` matches `abcd`, `abce` and `abcf`
@@ -119,10 +100,61 @@ Compiled Regex objects :
  - named conditional matching : `(?P<ch>\W)?foo(?(ch)(?P=ch)|)`  : `(?P<ch>\W)` A single non-word character, captured in a group named ch `(?P<ch>\W)?` Zero or one occurrences of the above `foo` The literal string 'foo', `(?(ch)(?P=ch)|)` The contents of the group named ch if it exists, or the empty string if it doesn’t
  - look ahead : doesn't consume the following chars : `foo(?=[a-z])`in `foobar` matches `foo`, not `foob`
  - alternation : `(foo|bar|baz)+', 'barbazfoo')` matches `barbazfoo`
- - compiled regex : `re_obj = re.compile(<regex>, <flags>)` then `result = re.search(re_obj, <string>)`is equivalent to `re_obj = re.compile(<regex>, <flags>)` then `result = re_obj.search(<string>)`is equivalent to `result = re.search(<regex>, <string>, <flags>)
-`
+ - compiled regex : `re_obj = re.compile(<regex>, <flags>)` then `result = re.search(re_obj, <string>)`is equivalent to `re_obj = re.compile(<regex>, <flags>)` then `result = re_obj.search(<string>)`is equivalent to `result = re.search(<regex>, <string>, <flags>)`
+
+ 
+# Objects and functions
+Searching functions : 
+ - `re.search()` : Scans a string for a regex match
+ - `re.match()` : Looks for a regex match at the beginning of a string
+ - `re.fullmatch()` : Looks for a regex match on an entire string
+ - `re.findall()` : Returns a list of all regex matches in a string
+ - `re.finditer()` : Returns an iterator that yields regex matches from a string
 
 
+Substitution functions : 
+ - `re.sub(<regex>, <repl>, <string>, count=0, flags=0)` : Scans a string for regex matches, replaces the matching portions of the string with the specified replacement string, and returns the result
+ - `re.subn(<regex>, <repl>, <string>, count=0, flags=0)` : Behaves just like re.sub() but also returns information regarding the number of substitutions made. count is the number of max replacements
+
+
+Utility functions : 
+ - `re.split(<regex>, <string>, maxsplit=0, flags=0)` : Splits a string into substrings using a regex as a delimiter
+ - `re.escape()` : Escapes characters in a regex
+
+
+Compiled Regex objects : 
+ - `re_obj = re.compile(<regex>, flags=0)`: compile a regex expression into a compiled regex object
+ - `re_obj.search(<string>[, <pos>[, <endpos>]])`
+ - `re_obj.match(<string>[, <pos>[, <endpos>]])`
+ - `re_obj.fullmatch(<string>[, <pos>[, <endpos>]])`
+ - `re_obj.findall(<string>[, <pos>[, <endpos>]])`
+ - `re_obj.finditer(<string>[, <pos>[, <endpos>]])`
+ - `re_obj.split(<string>, maxsplit=0)`
+ - `re_obj.sub(<repl>, <string>, count=0)`
+ - `re_obj.subn(<repl>, <string>, count=0)`
+ - `re_obj.flags` Any flags that are in effect for the regex
+ - `re_obj.groups` : The number of capturing groups in the regex
+ - `re_obj.groupindex` : A dictionary mapping each symbolic group name defined by the (?Pname) construct (if any) to the corresponding group number
+ - `re_obj.pattern`: the regex pattern that produced this object
+
+
+Match objects methods : 
+ - `match.group()` : The specified captured group or groups from match
+ - `match.__getitem__()` : A captured group from match
+ - `match.groups()` : All the captured groups from match
+ - `match.groupdict()` : A dictionary of named captured groups from match
+ - `match.expand()` : The result of performing backreference substitutions from match
+ - `match.start()` : The starting index of match
+ - `match.end()` : The ending index of match
+ - `match.span()` : Both the starting and ending indices of match as a tuple
+
+
+Match objects attributes : 
+ - `match.pos`/`match.endpos` : The effective values of the pos and endpos arguments for the match
+ - `match.lastindex` : The index of the last captured group
+ - `match.lastgroup` : The name of the last captured group
+ - `match.re` : The compiled regular expression object for the match
+ - `match.string` : The search string for the match
 
 
 # Flags
@@ -135,6 +167,7 @@ To use as : `re.search('^bar', 'FOO\nBAR\nBAZ', re.I|re.M)`
  - `re.A` : `re.ASCII` : Specifies ASCII encoding for character classification
  - `re.U` : `re.UNICODE` : Specifies Unicode encoding for character classification
  - `re.L` : `re.LOCALE` : Specifies encoding for character classification based on the current locale
+
 
 # Without regex
  - contains : `"123" in "12345"`

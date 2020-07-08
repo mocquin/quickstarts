@@ -9,6 +9,9 @@ First, locally and Gihtub:
  
 Then, on pypi:
  - check that pip3 install wheel is installed
+ - create and fill setup.py
+ - create and fill MANIFEST.in
+ - create and fill LICENSE
  - Re-create the wheels : python3 setup.py sdist bdist_wheel
  - check that twine is installed 
  - reupload the new package to test pypi first (skip-existing to avoid deleting old dist) :

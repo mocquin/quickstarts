@@ -1,6 +1,5 @@
 
-jupyter labextension uninstall my-extension
-jupyter labextension list
+
 
 
 
@@ -20,11 +19,14 @@ brew upgrade node
 ## usage
 ```
 jupyter labextension install jupyter-matplotlib : for %matplotlib widget
+jupyter labextension uninstall my-extension
 jupyter labextensino list
 jupyter labextension update --all
 ```
+
 ## curated list
 see also [https://github.com/mauhai/awesome-jupyterlab](https://github.com/mauhai/awesome-jupyterlab) and [https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/index.html](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/index.html)
+
 My best : 
  - [DrawIO](https://github.com/QuantStack/jupyterlab-drawio) : create figures
  - [Toc](https://github.com/jupyterlab/jupyterlab-toc) : table of content
@@ -33,6 +35,9 @@ My best :
  - [debugger](https://github.com/jupyterlab/debugger) : UI debugger
  - [variable inspector](https://github.com/lckr/jupyterlab-variableInspector) : UI variable inspector
  - [qgrid](https://github.com/quantopian/qgrid)
+ - [LSP](https://github.com/krassowski/jupyterlab-lsp)
+ - [kite](https://github.com/kiteco/jupyterlab-kite)
+ 
 
 # Ressources 
 https://github.com/mauhai/awesome-jupyterlab

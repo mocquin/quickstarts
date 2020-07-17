@@ -31,14 +31,16 @@ the environement varibale PATH : list of directories the console looks in to fin
 `echo $PATH$`
 
 
-mac
+#### mac
 `
 cd
 vim .bash_profile
 `
+append : `export PYTHONPATH="/Users/toto/modulepy`
+then `source ~/.bash_profile` or restart terminal
 
 
-linux
+#### linux
 `
 cd
 vim .bash_rc
@@ -119,3 +121,4 @@ numpy.__file__
 
 # Ressources
 https://chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html
+https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html

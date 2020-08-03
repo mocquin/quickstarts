@@ -258,7 +258,17 @@ ax4 = fig.add_axes([0.6, 0, 0.5, 0.5])
 
 fig, (ax0, ax1) = plt.subplots(ncols=2, constrained_layout=True)
  
+
+Matplotlib
+Ax.vlines(x, ymin, ymax)
+Ax.annotate(text, (x, y))
  
+Title to figure
+fig.suptitle('This is a somewhat long figure title', fontsize=16)
+
+
+
+
 # Ressources 
  - https://matplotlib.org/gallery/#embedding-matplotlib-in-graphical-user-interfaces 
  - https://github.com/matplotlib/GettingStarted/blob/master/notebooks/06-interactive.ipynb

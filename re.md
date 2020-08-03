@@ -38,7 +38,7 @@
  - grouping with quantifier : `(regex)?`
  - backreference to the first matched : `\1`
  - backreference to the nth matched : `\n`
- - named captured group : `(?P<name><regex>)`
+ - named captured group : `(?P<name>regex)`
  - backreference using named group : `(?P=<name>)` or `(?P=name)`
  - non-capturing group : `(?:<regex>)`
  - conditional matching : `(?(<n>)<yes-regex>|<no-regex>)`or  `(?(<name>)<yes-regex>|<no-regex>)`

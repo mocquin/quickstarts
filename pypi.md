@@ -16,8 +16,11 @@ Then, on pypi:
  - check that twine is installed 
  - reupload the new package to test pypi first (skip-existing to avoid deleting old dist) :
  `python3 -m twine upload --repository-url https://test.pypi.org/legacy/ --skip-existing dist/*`
- - then on real pypi
- `python3 -m twine upload --skip-existing dist/* `
+ - create a new venv and try to install with (does not install depedencies with `--no-deps`because other packages are not on TestPypi). The depedencies can be installed with `pip install -r requirements.txt)`: 
+ `python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps physipy`
+ - then upload on real pypi
+ `python3 -m twine upload --skip-existing dist/*`
+ - and test to install on a new venv from pypi
  
  
 # Tests on on TestPypi : 
@@ -25,7 +28,7 @@ To upload on TestPypi
 ```
 python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 ```
-To install from TestPypi : in a venv : this will only install the package, not the dependencies (use pip install -r requirements.txt to install the dependencies from the real pypi)
+To install from TestPypi : in a venv : this will only install the package, not the dependencies (use pip install -r requirements.txt to install the dependencies from the real pypi). See (https://stackoverflow.com/questions/57151603/how-to-get-pypi-to-automatically-install-dependencies)[here as to why '--no-deps']:
 
 ```
 python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps physipy

@@ -228,3 +228,40 @@ def scatter_plot(x=list(df.select_dtypes('number').columns),
 
 ressources : 
 https://towardsdatascience.com/interactive-controls-for-jupyter-notebooks-f5c94829aee6
+
+
+
+Pandas :
+# Convert df to dict
+Df.set_index(“key for dict”).T.to_dict()
+# Add columns based on dict lookup
+df['D'] = df['U'].map(d)
+# Subselection columns
+Df[[“A”, “B”, “D”]]
+# inplace drop based on condition
+df.drop(df[df.score < 50].index, inplace=True)
+# drop row which contains nan
+Df.dropna()
+# sorting
+Df.sort_values(by=”Age”, inplace=True, ascending=True)
+# Creation from list of tuples
+df = pd.DataFrame(list_of_tuples, columns =['Name', 'Age', 'Score'])
+ 
+# read csv like
+Pd.read_csv(path, sep=”\t”, skiprows=5, header=None)
+# rename columns
+Df.columns = [str(i) for I in range(100)]
+ 
+# see melt, unstack, explode
+Df.melt()
+Df.melt(“x”)
+
+
+Convert to csv :
+Df.to_csv(path, index=False, sep=”;”)
+ 
+ 
+ 
+Add columns with values from dict :
+For key, value in mon_dict.items():
+            Df[key] = value

@@ -6,6 +6,10 @@
 https://discourse.jupyter.org/t/extension-shows-up-as-both-installed-and-uninstalled-and-doesnt-work/2688/3
 
 
+Jupyterlab startup folder
+: crer un jupyter_notebook_config.py dans le home avec c.NotebookApp.notebook_dir = r”chemin vers startup”
+ 
+
 
 # node
 You migth need to upgrade node

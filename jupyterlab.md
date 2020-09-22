@@ -9,7 +9,9 @@ https://discourse.jupyter.org/t/extension-shows-up-as-both-installed-and-uninsta
 Jupyterlab startup folder
 : crer un jupyter_notebook_config.py dans le home avec c.NotebookApp.notebook_dir = r”chemin vers startup”
  
-
+Convertir notebook en script :
+-          Jupyter nbconvert –to script .\mon_notebook.ipynb
+ 
 
 # node
 You migth need to upgrade node

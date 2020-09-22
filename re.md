@@ -179,3 +179,4 @@ To use as : `re.search('^bar', 'FOO\nBAR\nBAZ', re.I|re.M)`
 - https://realpython.com/regex-python/
 - https://realpython.com/regex-python-part-2/
 - https://regex101.com/
+- http://www.tdda.info/introducing-rexpy-automatic-discovery-of-regular-expressions.html

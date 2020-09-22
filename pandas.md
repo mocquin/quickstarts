@@ -1,3 +1,40 @@
+
+# count unique pair of columns
+d.groupby(['ip', 'useragent']).size()
+ 
+my_df.groupby('age')['taille'].mean() : regroupe les lignes par même age, et moyenne les tailles
+ 
+# get dropped rows after merging : use outer merge with indicator=True, then print(merged_df[merged _df['_merge'] != 'both'])
+ 
+ 
+ 
+df.rename(columns={'oldName1': 'newName1', 'oldName2': 'newName2'}, inplace=True)
+ 
+appiled_df = df.apply(lambda row: function_toto(row["age)"],
+                                                                row['weight']),
+                                                                axis='columns', result_type='expand')
+df = pd.concat([df, appiled_df], axis='columns')
+ 
+duplicate in pandas : returns all duplicate rows (except first occurrence)
+duplicateRowsDF = dfObj[dfObj.duplicated()]
+df.loc[:, df.columns != 'b']
+ 
+df = df.apply(pd.to_numeric) # convert all columns of DataFrame
+df[["a", "b"]] = df[["a", "b"]].apply(pd.to_numeric)
+ 
+ 
+plot X Y with colored z : plt.scatter("TSU", "TEMP_EQUIV", c='CN_BANC_TEMPERATURE_CN',data=df)
+Other metdho :
+grouped=df.groupby('type')
+for name, group in grouped:
+  plt.plot(group.day,group.percent)
+ 
+ 
+drop based on condition : df.drop(df[df.score < 50].index, inplace=True)
+ 
+
+
+
 # Creation
  - serie from list : `S = pd.Series(my_list)`
  - empty dataframe : `df = pd.DataFrame(columns=['A','B','C'])`

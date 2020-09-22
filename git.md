@@ -53,6 +53,7 @@ git branch branch_name : create branch called branch_name
 git branch –d branch_name : delete branch with check for unmerged commits
 git branch –D branch_name : delete branch
 git branch branch_name tag_name : create branch from tagged commit
+git branch -f master 32c7bf3 : sets master branch tip to commit
 ```
 
 Other commands about branches : 

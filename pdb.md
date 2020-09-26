@@ -42,7 +42,6 @@
  - u : Move the current frame one level up in the stack trace (to an older frame).
  - d : Move the current frame one level down in the stack trace (to a newer frame).
  
- 
 ## interactive mode
 Exit interacvtive console : CTRL+D (sends EOF)
  
@@ -50,17 +49,33 @@ Exit interacvtive console : CTRL+D (sends EOF)
 PYTHONBREAKPOINT=0 : disable breakpoints
 See https://www.python.org/dev/peps/pep-0553/
  
+
+# pudb
+In code, insert any of :
+ - `from pudb import set_trace; set_trace()`
+ - `import pudb; pu.db`
+then in terminal : `pudb3 my-script.py`
+Alternatively, simply use : `python -m pudb.run my-script.py`
+
+
 # ressources
- 
+
 ## tutorials
 https://realpython.com/python-debugging-pdb/
 https://switowski.com/blog/ipython-debugging
- 
+
+## cheatsheet
+http://wangchuan.github.io/coding/2017/07/12/ipdb-cheat-sheet.html
+
 ## debuger packages
 - pdb : https://docs.python.org/3/library/pdb.html
 - pudb : https://pypi.org/project/pudb/
 - pdb++ : https://pypi.org/project/pdbpp/
 - ipdb : https://pypi.org/project/ipdb/
+- pixiedust : https://github.com/pixiedust/pixiedust
+- jupyterlab debugger : 
+  - https://github.com/jupyterlab/debugger
+  - https://mybinder.org/v2/gh/jupyterlab/debugger/stable?urlpath=/lab/tree/examples/index.ipynb
  
 ## youtube
 - pudb : https://www.youtube.com/watch?v=I6yEW9DCPMA

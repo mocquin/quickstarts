@@ -13,7 +13,7 @@ Spyder :
  - Cells : # %%
  - Extension pour notebook
 SPyder : point d’arret en simple cliquant sur une ligne avec du code
-
+spyder : modifier le layout des panels : affichage, déverrouiller les volets, puis déplacer-glisser
 
 Manque dans spyder :
 - Call stack debugger

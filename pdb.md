@@ -1,21 +1,21 @@
 # pdb
  
-# calls
- - in the code, import module and set trace : `import pdf; pdf.set_trace()`
+## calls
+ - in the code, import module and set trace : `import pdb; pdb.set_trace()`
  - in the code, insert breakpoint with the built-in function (python>=3.7): `breakpoint()`
  - in shell, call the pdb module with the script as argument : `python –m pdb toto.py`
- - post-mortem : import pdb; pdb.pm()
- - in notebooks : from IPython.core.debugger import set_trace; set_trace()
+ - post-mortem : `import pdb; pdb.pm()`
+ - in notebooks : `from IPython.core.debugger import set_trace; set_trace()`
  - open an Ipython session at runtime : insert `from IPython import embed; embed()` at breakpoint spot, then quit Ipython (will restore execution of source code)
- - use ipdb : import ipdb; ipdb.set_trace()
+ - use ipdb : `import ipdb; ipdb.set_trace()`
  - ipython magic line run with –d :
-  - %run -d filename.py
-  - %run -d  -b42 filename.py to start debugging at line 42
-  - %run -d -b myotherfile.py:42 myscript.py
+  - `%run -d filename.py`
+  - `%run -d  -b42 filename.py` to start debugging at line 42
+  - `%run -d -b myotherfile.py:42 myscript.py`
  - Ipython : post mortem debugging : run `%debug` after crash (equivalent to import pdb; pdb.pm())
- - Toggle automatic debugging : %pdb : will enable/disable opening debugger at each exception
+ - Toggle automatic debugging : `%pdb` : will enable/disable opening debugger at each exception
  
-# commands
+## commands
  - `l` ou `list` : list code source
  - `l 3,10` : list code source from line 3 to 10
  - `ll` ou `long list`
@@ -43,33 +43,15 @@
  - `d` : Move the current frame one level down in the stack trace (to a newer frame).
  
 ## interactive mode
-Exit interacvtive console : CTRL+D (sends EOF)
+Exit interactive console : CTRL+D (sends EOF)
  
 ## breakpoint() in python>3.7
 PYTHONBREAKPOINT=0 : disable breakpoints
 See https://www.python.org/dev/peps/pep-0553/
  
 
-# pudb
- - pypi : https://pypi.org/project/pudb/
- - github : https://github.com/inducer/pudb
- - doc : https://documen.tician.de/pudb/
-Install with `pip install pudb`.
-In code, insert any of :
- - `from pudb import set_trace; set_trace()`
- - `import pudb; pu.db`
-then in terminal : `pudb3 my-script.py`
-Alternatively, simply use : `python -m pudb.run my-script.py`
 
-# birdseye
-
-In code, insert : 
- - `from birdseye import eye`
- - then decorate function with `@eye`
-In ipython/notebooks : `%load_ext birdseye`, then `%%eye` in the cell
-
-
-# ressources
+# debugging ressources
 
 ## tutorials
 https://realpython.com/python-debugging-pdb/

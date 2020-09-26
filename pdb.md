@@ -16,31 +16,31 @@
  - Toggle automatic debugging : %pdb : will enable/disable opening debugger at each exception
  
 # commands
- - ` l` ou `list` : list code source
- - ` l 3,10` : list code source from line 3 to 10
+ - `l` ou `list` : list code source
+ - `l 3,10` : list code source from line 3 to 10
  - `ll` ou `long list`
- - ` p` ou `print` : Print the value of an expression.
- - ` p toto` : print the toto variable
- - ` pp` ou ` prettyprint ` : Pretty-print the value of an expression.
- - `n  `next` : go to next line : Continue execution until the next line in the current function is reached or it returns.
- - `s  `step` : step into next frame : Execute the current line and stop at the first possible occasion (either in a function that is called or in the current function).
- - ` Until ` : skip to end of loop : Continue execution until the line with a number greater than the current one is reached. With a line number argument, continue execution until a line with a number greater or equal to that is reached.
+ - `p` ou `print` : Print the value of an expression.
+ - `p toto` : print the toto variable
+ - `pp` ou ` prettyprint ` : Pretty-print the value of an expression.
+ - `n`next` : go to next line : Continue execution until the next line in the current function is reached or it returns.
+ - `s`step` : step into next frame : Execute the current line and stop at the first possible occasion (either in a function that is called or in the current function).
+ - `until ` : skip to end of loop : Continue execution until the line with a number greater than the current one is reached. With a line number argument, continue execution until a line with a number greater or equal to that is reached.
  - `r` ou `return` : skip to end of function
- - ` b` : set un breakpoint  : With no arguments, list all breaks. With a line number argument, set a breakpoint at this line in the current file.
- - ` b 16`  : set breakpoint on line 16
- - ` cl` ou `clear` : clear breakpoint
- - ` c` ou `continue` : skip to next breakpoint  : Continue execution and only stop when a breakpoint is encountered.
- - ` interact` : opens interactive mode
- -  `q` ou `quit` : quit debugger
+ - `b` : set un breakpoint  : With no arguments, list all breaks. With a line number argument, set a breakpoint at this line in the current file.
+ - `b 16`  : set breakpoint on line 16
+ - `cl` ou `clear` : clear breakpoint
+ - `c` ou `continue` : skip to next breakpoint  : Continue execution and only stop when a breakpoint is encountered.
+ - `interact` : opens interactive mode
+ - `q` ou `quit` : quit debugger
  - `w` : Print a stack trace, with the most recent frame at the bottom. An arrow indicates the current frame, which determines the context of most commands
  - `h` : help
  - `h continue` : help on command
  - `h pdb` : full pdb doc
  - `display expr` : Display the value of expression if it changed, each time execution stops in the current frame. Without expression, list all display expressions for the current frame.
  - `undisplay expr` : Do not display expression any more in the current frame. Without expression, clear all display expressions for the current frame.
- - Args : if you are inside a function it prints the arguments
- - u : Move the current frame one level up in the stack trace (to an older frame).
- - d : Move the current frame one level down in the stack trace (to a newer frame).
+ - `args` : if you are inside a function it prints the arguments
+ - `u`: Move the current frame one level up in the stack trace (to an older frame).
+ - `d` : Move the current frame one level down in the stack trace (to a newer frame).
  
 ## interactive mode
 Exit interacvtive console : CTRL+D (sends EOF)
@@ -51,11 +51,22 @@ See https://www.python.org/dev/peps/pep-0553/
  
 
 # pudb
+ - pypi : https://pypi.org/project/pudb/
+ - github : https://github.com/inducer/pudb
+ - doc : https://documen.tician.de/pudb/
+Install with `pip install pudb`.
 In code, insert any of :
  - `from pudb import set_trace; set_trace()`
  - `import pudb; pu.db`
 then in terminal : `pudb3 my-script.py`
 Alternatively, simply use : `python -m pudb.run my-script.py`
+
+# birdseye
+
+In code, insert : 
+ - `from birdseye import eye`
+ - then decorate function with `@eye`
+In ipython/notebooks : `%load_ext birdseye`, then `%%eye` in the cell
 
 
 # ressources
@@ -73,6 +84,7 @@ http://wangchuan.github.io/coding/2017/07/12/ipdb-cheat-sheet.html
 - pdb++ : https://pypi.org/project/pdbpp/
 - ipdb : https://pypi.org/project/ipdb/
 - pixiedust : https://github.com/pixiedust/pixiedust
+- birdseye : https://github.com/alexmojaki/birdseye#jupyteripython-notebook-integration
 - jupyterlab debugger : 
   - https://github.com/jupyterlab/debugger
   - https://mybinder.org/v2/gh/jupyterlab/debugger/stable?urlpath=/lab/tree/examples/index.ipynb

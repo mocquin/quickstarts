@@ -302,3 +302,9 @@ Df.to_csv(path, index=False, sep=”;”)
 Add columns with values from dict :
 For key, value in mon_dict.items():
             Df[key] = value
+            
+Df.groupby(by=[« age », “size”, “length”]).mean() : : returns a groupby object, TCD-like
+Add arbitrary numerical category to non-numerical data : df[“data_num_cat”] = df[“data”].target.astype(“category”).cat.codes
+Add mean value to all rows : https://stackoverflow.com/questions/10373660/converting-a-pandas-groupby-output-from-series-to-dataframe
+Pd.merge(df.groupby(by=”age”).mean().add_prefix(“mean_”).reset_index(), df)
+ 

@@ -2,39 +2,53 @@
 
 
 # Ressources
-http://ipywidgets.readthedocs.io/en/latest/index.html
-https://github.com/jupyter-widgets/tutorial
-https://gitter.im/jupyter-widgets/Lobby
-https://github.com/JuanCab/AstroInteractives
-https://github.com/jupyter-widgets/ipywidgets/blob/master/docs/source/examples/Index.ipynb
-
+ - Official doc :http://ipywidgets.readthedocs.io/en/latest/index.html
+ - Tutorial : https://github.com/jupyter-widgets/tutorial
+ - Gitter lobby : https://gitter.im/jupyter-widgets/Lobby
+ - Examples : https://github.com/JuanCab/AstroInteractives
+ - Tutorial : https://github.com/jupyter-widgets/ipywidgets/blob/master/docs/source/examples/Index.ipynb
+ - Widgets list : https://github.com/jupyter-widgets/tutorial/blob/master/notebooks/reference_guides/complete-ipywidgets-widget-list.ipynb
+ - Flexbox model : https://github.com/jupyter-widgets/tutorial/blob/master/notebooks/reference_guides/guide-flex-box.ipynb
+ - Gridbox model : https://github.com/jupyter-widgets/tutorial/blob/master/notebooks/reference_guides/guide-grid-box.ipynb
+ - Building a df-reader tutorial :https://medium.com/analytics-vidhya/python-data-projects-data-analysis-ui-reinforced-by-ipywidgets-d680493464b8
+ - List of keys and style_keys:https://github.com/jupyter-widgets/tutorial/blob/master/notebooks/Table_of_widget_keys_and_style_keys.ipynb
+ - Example of widget app :
+   - Drawing pad : https://github.com/ocoudray/jupyter-drawing-pad
+   - Sidecar : https://github.com/jupyter-widgets/jupyterlab-sidecar
+   - Ipyvuetify : https://github.com/mariobuikhuizen/ipyvuetify
+   - Df reader : https://github.com/finos/perspective
 
 
 # quickstart 
 ```python
 import ipywidgets as widgets
 ```
+Common widget attributes : 
+- `value`
+- `keys`
+- `description`
+- `disabled`
+- `layout` : a `Layout` object for generic css properties
+- `style` : a widget-specific style object for specific styling
 
+A list of common widget attributes can be found [here](https://github.com/jupyter-widgets/tutorial/blob/master/notebooks/Table_of_widget_keys_and_style_keys.ipynb).
 
-
+Common widget methods : 
+ - link widget's values : `mylink = widgets.link((a, 'value'), (b, 'value'))`
  - display widgets : `IPython.display.display(w)`
  - close widgets : `w.close()`
- - attributes : 
-  - value
-  - keys
-  - description
-  - disabled
- 
-# linking and observing widgets
+
+# Linking and observing widgets
 Using link is great if no transformation of the values is needed. observe is useful if some kind of calculation needs to be done with the values or if the values that are related have different types.
-## link
- - to link properties : `mylink = widgets.link((a, 'value'), (b, 'value'))` links values
+
+## Link
+ - to link properties : `mylink = widgets.link((a, 'value'), (b, 'value'))`
  - jslink : javascript-link : `mylink = widgets.jslink((a, 'value'), (b, 'value'))`
  - dlink : directionnal linkg
  - djslink : directionnal java-script side linking
 Remove link with `unlink()` method.
 
-## observe
+## Observe
 The callback registered must have the signature `handler(change)` where change is a dictionary holding the information about the change.
 The change has :
  - owner : the HasTraits instance
@@ -84,8 +98,9 @@ def on_value_change(change):
 int_range.observe(on_value_change, names='value')
 ```
 
-# interact
+# Interact and Interactive
 
+## Interact
 ```python
 x = widgets.IntSlider(start=0, end=10, step=2)
 y = widgets.IntSlider(start=0, end=10, step=2)
@@ -104,9 +119,8 @@ def g(x,y):
 
  - fixed : `from ipywidgets import fixed; interact(g,x=10,y=fixed(20))`
 
-# interactive
-By default, interact and interactive call the function for every update of the widgets value.
-Similar to interact, but returns a widget instead of juste displaying it.
+## Interactive
+By default, interact and interactive call the function for every update of the widgets value. Similar to interact, but returns a widget instead of juste displaying it.
 `w = interactive(f, a=10, b=20)`
 To introspect : 
  - w.kwargs
@@ -168,6 +182,106 @@ display(ui, out)
 
 
 
+# Layout and styling:
+Difference between layout and style : 
+ - A layout can be shared by multiple different widgets
+ - A style is widget-specific
+
+```python
+from ipywidgets import Button, Layout, ButtonStyle
+my_layout = Layout(width='50%', height='80px', border='2px dotted blue')
+my_buttont_style = ButtonStyle(button_color = 'lightgreen')
+b1 = Button(description='(50% width, 80px height) button',
+           layout=my_layout,
+           style=my_button_style)
+```
+## Layout
+A `Layout` object has several attributes that can be object-oriented-changed or initialized at creation like `Layout(width='50%')`.
+
+- Sizes
+   - `height`(50%, 50px)
+   - `width`
+   - `max_height`
+   - `max_width`
+   - `min_height`
+   - `min_width`
+- Display
+   - `visibility`
+   - `display`
+   - `overflow`
+   - `overflow_x` (deprecated in 7.5, use overflow instead)
+   - `overflow_y` (deprecated in 7.5, use overflow instead)
+- Box model
+   - `border`
+   - `margin` or margin = « 100px 240px 0px 9px » for top, right bottom left
+   - `padding`
+- Positioning
+   - `top`
+   - `left`
+   - `bottom`
+   - `right`
+- Image/media
+   - `object_fit`
+   - `object_position`
+- Flexbox
+   - `order`
+   - `flex_flow`
+   - `align_items`
+   - `flex`
+   - `align_self`
+   - `align_content`
+   - `justify_content`
+   - `justify_items`
+- Grid layout
+   - `grid_auto_columns`
+   - `grid_auto_flow`
+   - `grid_auto_rows`
+   - `grid_gap`
+   - `grid_template_rows`
+   - `grid_template_columns`
+   - `grid_template_areas`
+   - `grid_row`
+   - `grid_column`
+   - `grid_area`
+ 
+## Style
+The accessible attribute for a widget-style are in its `keys` attribute : `b2.style.keys`
+List of style keys :
+ - IntSlider has style keys: `description_width`, `handle_color`
+- FloatSlider has style keys: `description_width`, `handle_color`
+- IntRangeSlider has style keys: `description_width`, `handle_color`
+- FloatRangeSlider has style keys: `description_width`, `handle_color`
+- IntProgress has style keys: `bar_color, description_width`
+- FloatProgress has style keys: `bar_color, description_width`
+- BoundedIntText has style keys: `description_width`
+- BoundedFloatText has style keys: `description_width`
+- IntText has style keys: `description_width`
+- FloatText has style keys: `description_width`
+- ToggleButton has style keys: `description_width`
+- Checkbox has style keys: `description_width`
+- Valid has style keys: `description_width`
+- Dropdown has style keys: `description_width`
+- RadioButtons has style keys: `description_width`
+- Select has style keys: `description_width`
+- SelectionSlider has style keys: `description_width`
+- SelectionRangeSlider has style keys: `description_width`
+- ToggleButtons has style keys: `button_width`, `description_width`, `font_weight`
+- SelectMultiple has style keys: `description_width`
+- Text has style keys: `description_width`
+- Textarea has style keys: `description_width`
+- Label has style keys: `description_width`
+- HTML has style keys: `description_width`
+- HTMLMath has style keys: `description_width`
+- Image has style keys:
+- Button has style keys: `button_color`, `font_weight`
+- Play has style keys: `description_width`
+- DatePicker has style keys: `description_width`
+- ColorPicker has style keys: `description_width`
+- Box has style keys:
+- HBox has style keys:
+- VBox has style keys:
+- Accordion has style keys:
+- Tab has style keys:
 
 
 
@@ -643,7 +757,43 @@ stacked  # will show only the button
 #widgets.VBox([dropdown, stacked])
 ```
 
-
+## TwoByTwoLayout
+```python
+from ipywidgets import TwoByTwoLayout, Button, Layout
+TwoByTwoLayout(top_left=Button(description="Top left"),
+               top_right=Button(description="Top right"),
+               bottom_left=Button(description="Bottom left"),
+               bottom_right=Button(description="Bottom right"))
+```
+## AppLayout
+```python
+from ipywidgets import AppLayout, Button, Layout
+header        = Button(description="Header",
+                       layout=Layout(width="auto", height="auto"))
+left_sidebar  = Button(description="Left Sidebar",
+                       layout=Layout(width="auto", height="auto"))
+center        = Button(description="Center",
+                       layout=Layout(width="auto", height="auto"))
+right_sidebar = Button(description="Right Sidebar",
+                       layout=Layout(width="auto", height="auto"))
+footer        = Button(description="Footer",
+                       layout=Layout(width="auto", height="auto"))
+AppLayout(header=header,
+          left_sidebar=left_sidebar,
+          center=center,
+          right_sidebar=right_sidebar,
+          footer=footer)
+```
+ 
+## GridSpecLayout
+```python
+from ipywidgets import GridspecLayout, Button, Layout
+grid = GridspecLayout(4, 3)
+for i in range(4):
+    for j in range(3):
+        grid[i, j] = Button(layout=Layout(width='auto', height='auto'))
+grid
+```
 
 
 
@@ -670,4 +820,8 @@ ipywidgets.interact(lambda i:ax.imshow(data[i]), i=ipywidgets.IntSlider(min=0, m
 
  
 https://stackoverflow.com/questions/41667397/interactive-boxplot-with-pandas-and-jupyter-notebook
+ 
+ 
+
+ 
  

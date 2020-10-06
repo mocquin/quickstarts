@@ -16,7 +16,172 @@ import ipywidgets as widgets
 ```
 
 
+
+ - display widgets : `IPython.display.display(w)`
+ - close widgets : `w.close()`
+ - attributes : 
+  - value
+  - keys
+  - description
+  - disabled
+ 
+# linking and observing widgets
+Using link is great if no transformation of the values is needed. observe is useful if some kind of calculation needs to be done with the values or if the values that are related have different types.
+## link
+ - to link properties : `mylink = widgets.link((a, 'value'), (b, 'value'))` links values
+ - jslink : javascript-link : `mylink = widgets.jslink((a, 'value'), (b, 'value'))`
+ - dlink : directionnal linkg
+ - djslink : directionnal java-script side linking
+Remove link with `unlink()` method.
+
+## observe
+The callback registered must have the signature `handler(change)` where change is a dictionary holding the information about the change.
+The change has :
+ - owner : the HasTraits instance
+ - old : the old value of the modified trait attribute
+ - new : the new value of the modified trait attribute
+ - name : the name of the modified trait attribute.
+
+```python
+slider = widgets.FloatSlider(
+    value=7.5,
+    min=5.0,
+    max=10.0,
+    step=0.1,
+    description='Input:',
+)
+
+# Create non-editable text area to display square of value
+square_display = widgets.HTML(description="Square: ", value='{}'.format(slider.value**2))
+
+# Create function to update square_display's value when slider changes
+def update_square_display(change):
+    square_display.value = '{}'.format(change.new**2)
+    
+slider.observe(update_square_display, names='value')
+
+# Put them in a vertical box
+widgets.VBox([slider, square_display])
+
+```
+
+
+```python
+int_range = widgets.IntSlider()
+output2 = widgets.Output()
+
+display(int_range, output2)
+
+def on_value_change(change):
+    output2.clear_output(wait=True)
+
+    old = change['old']
+    new = change['new']
+
+    with output2:
+        print(f'The value was {old} and is now {new}')
+
+int_range.observe(on_value_change, names='value')
+```
+
+# interact
+
+```python
+x = widgets.IntSlider(start=0, end=10, step=2)
+y = widgets.IntSlider(start=0, end=10, step=2)
+def adding(x, y):
+    print(f"The sum of {} and {} is {}".format(x, y, x+y))
+interact(adding, x=x, y=y)
+```
+
+```python
+@interact(x=True,y=1.0)
+def g(x,y):
+    return (x,y)
+```
+
+ - customize interact widget : `interact(f,x=widgets.IntSlider(min=-10,max=30,step=1,value=23))`
+
+ - fixed : `from ipywidgets import fixed; interact(g,x=10,y=fixed(20))`
+
+# interactive
+By default, interact and interactive call the function for every update of the widgets value.
+Similar to interact, but returns a widget instead of juste displaying it.
+`w = interactive(f, a=10, b=20)`
+To introspect : 
+ - w.kwargs
+ - w.result
+
+## interact_manual
+```python
+foo = interactive(slow_function, {'manual': True}, i=widgets.FloatSlider(min=1e4, max=1e6, step=1e4))
+foo
+```
+
+```python
+def slow_function(i):
+    """
+    Sleep for 1 second then print the argument
+    """
+    from time import sleep
+    print('Sleeping...')
+    sleep(1)
+    print(i)
+
+interact_manual(slow_function,i=widgets.FloatSlider(min=1e4, max=1e6, step=1e4));`
+```
+
+## continuous_update
+```python
+interact(slow_function,i=widgets.FloatSlider(min=1e4, max=1e6, step=5e4, continuous_update=False));
+```
+```python
+a = widgets.IntSlider(description="Delayed", continuous_update=False)
+b = widgets.IntText(description="Delayed", continuous_update=False)
+c = widgets.IntSlider(description="Continuous", continuous_update=True)
+d = widgets.IntText(description="Continuous", continuous_update=True)
+
+widgets.link((a, 'value'), (b, 'value'))
+widgets.link((a, 'value'), (c, 'value'))
+widgets.link((a, 'value'), (d, 'value'))
+widgets.VBox([a,b,c,d])
+```
+
+## interactive_ouput
+```python
+a = widgets.IntSlider()
+b = widgets.IntSlider()
+c = widgets.IntSlider()
+
+# An HBox lays out its children horizontally
+ui = widgets.HBox([a, b, c])
+
+def f(a, b, c):
+    # You can use print here instead of display because interactive_output generates a normal notebook 
+    # output area.
+    print((a, b, c))
+
+out = widgets.interactive_output(f, {'a': a, 'b': b, 'c': c})
+
+display(ui, out)
+```
+
+
+
+
+
+
+
 # Widgets list
+To create a browser of available widgets:
+```python
+import ipywidgets as widgets
+from widget_org import organized_widgets, list_overview_widget
+groups = organized_widgets(organize_by='ui')
+help_url_base='reference_guides/complete-ipywidgets-widget-list.ipynb'
+list_overview_widget(groups, columns=2,
+                     min_width_single_widget=200, help_url_base=help_url_base)
+```
 
 ## Numeric widgets
 ### Intslider
@@ -502,85 +667,6 @@ fig, ax = plt.subplots();
 # longer version
 ipywidgets.interact(lambda i:ax.imshow(data[i]), i=ipywidgets.IntSlider(min=0, max=np.shape(data)[0]-1, step=1, value=0));
 ```
-
- - display widgets : `IPython.display.display(w)`
- - close widgets : `w.close()`
- - attributes : 
-  - value
-  - keys
-  - description
-  - disabled
- 
-# linking widgets
- - jslink : javascript-link : `mylink = widgets.jslink((a, 'value'), (b, 'value'))`
- 
-Remove link with `unlink()` method.
-
-# interact
-
-```python
-x = widgets.IntSlider(start=0, end=10, step=2)
-y = widgets.IntSlider(start=0, end=10, step=2)
-def adding(x, y):
-    print(f"The sum of {} and {} is {}".format(x, y, x+y))
-interact(adding, x=x, y=y)
-```
-
-```python
-@interact(x=True,y=1.0)
-def g(x,y):
-    return (x,y)
-```
-
- - customize interact widget : `interact(f,x=widgets.IntSlider(min=-10,max=30,step=1,value=23))`
-
- - fixed : `from ipywidgets import fixed; interact(g,x=10,y=fixed(20))`
-
-# interactive
-By default, interact and interactive call the function for every update of the widgets value.
-Similar to interact, but returns a widget instead of juste displaying it.
-`w = interactive(f, a=10, b=20)`
-To introspect : 
- - w.kwargs
- - w.result
-
-## interact_manual
-`foo = interactive(slow_function, {'manual': True}, i=widgets.FloatSlider(min=1e4, max=1e6, step=1e4))
-foo`
-`
-def slow_function(i):
-    """
-    Sleep for 1 second then print the argument
-    """
-    from time import sleep
-    print('Sleeping...')
-    sleep(1)
-    print(i)
-
-interact_manual(slow_function,i=widgets.FloatSlider(min=1e4, max=1e6, step=1e4));`
-
-## continuous_update
-`interact(slow_function,i=widgets.FloatSlider(min=1e4, max=1e6, step=5e4, continuous_update=False));`
-
-## interactive_ouput
-```python
-a = widgets.IntSlider()
-b = widgets.IntSlider()
-c = widgets.IntSlider()
-
-# An HBox lays out its children horizontally
-ui = widgets.HBox([a, b, c])
-
-def f(a, b, c):
-    # You can use print here instead of display because interactive_output generates a normal notebook 
-    # output area.
-    print((a, b, c))
-
-out = widgets.interactive_output(f, {'a': a, 'b': b, 'c': c})
-
-display(ui, out)
-```
-
 
  
 https://stackoverflow.com/questions/41667397/interactive-boxplot-with-pandas-and-jupyter-notebook

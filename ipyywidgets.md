@@ -20,9 +20,11 @@
 
 
 # quickstart 
+
 ```python
 import ipywidgets as widgets
 ```
+
 Common widget attributes : 
 - `value`
 - `keys`
@@ -30,11 +32,13 @@ Common widget attributes :
 - `disabled`
 - `layout` : a `Layout` object for generic css properties
 - `style` : a widget-specific style object for specific styling
+- `continuous_update` : kwarg to restrict execution on mouse release
 
 A list of common widget attributes can be found [here](https://github.com/jupyter-widgets/tutorial/blob/master/notebooks/Table_of_widget_keys_and_style_keys.ipynb).
 
 Common widget methods : 
  - link widget's values : `mylink = widgets.link((a, 'value'), (b, 'value'))`
+ - observe widget attribute : `w.observe(function_to_run_on_change, names="widget_attribute_to_observe")`
  - display widgets : `IPython.display.display(w)`
  - close widgets : `w.close()`
 
@@ -49,8 +53,8 @@ Using link is great if no transformation of the values is needed. observe is use
 Remove link with `unlink()` method.
 
 ## Observe
-The callback registered must have the signature `handler(change)` where change is a dictionary holding the information about the change.
-The change has :
+The callback registered must have the signature `handler(change)` where change is a dictionary holding the information about the change. The change has :
+
  - owner : the HasTraits instance
  - old : the old value of the modified trait attribute
  - new : the new value of the modified trait attribute
@@ -66,7 +70,8 @@ slider = widgets.FloatSlider(
 )
 
 # Create non-editable text area to display square of value
-square_display = widgets.HTML(description="Square: ", value='{}'.format(slider.value**2))
+square_display = widgets.HTML(description="Square: ",
+                              value='{}'.format(slider.value**2))
 
 # Create function to update square_display's value when slider changes
 def update_square_display(change):
@@ -98,9 +103,19 @@ def on_value_change(change):
 int_range.observe(on_value_change, names='value')
 ```
 
-# Interact and Interactive
+
+# Interact, Interactive, Interactive manual and Interactive output
+
+ - `interact` : only display inputs widgets and output
+ - `interactive` : same but returns a widget
+ - `interactive_manual` : same as interact, but with a button to update results
+ - `interactive_output` : One liner to create a widget output that displays the output of an interactive function
+
 
 ## Interact
+
+Basic usage : 
+
 ```python
 x = widgets.IntSlider(start=0, end=10, step=2)
 y = widgets.IntSlider(start=0, end=10, step=2)
@@ -109,26 +124,31 @@ def adding(x, y):
 interact(adding, x=x, y=y)
 ```
 
+As decorator :
+
 ```python
 @interact(x=True,y=1.0)
 def g(x,y):
     return (x,y)
 ```
 
- - customize interact widget : `interact(f,x=widgets.IntSlider(min=-10,max=30,step=1,value=23))`
-
- - fixed : `from ipywidgets import fixed; interact(g,x=10,y=fixed(20))`
 
 ## Interactive
+
 By default, interact and interactive call the function for every update of the widgets value. Similar to interact, but returns a widget instead of juste displaying it.
+
 `w = interactive(f, a=10, b=20)`
 To introspect : 
  - w.kwargs
  - w.result
 
 ## interact_manual
+
+Option to pass to create a button to update results.
+
 ```python
-foo = interactive(slow_function, {'manual': True}, i=widgets.FloatSlider(min=1e4, max=1e6, step=1e4))
+foo = interactive(slow_function, {'manual': True},
+                  i = widgets.FloatSlider(min=1e4, max=1e6, step=1e4))
 foo
 ```
 
@@ -145,27 +165,15 @@ def slow_function(i):
 interact_manual(slow_function,i=widgets.FloatSlider(min=1e4, max=1e6, step=1e4));`
 ```
 
-## continuous_update
-```python
-interact(slow_function,i=widgets.FloatSlider(min=1e4, max=1e6, step=5e4, continuous_update=False));
-```
-```python
-a = widgets.IntSlider(description="Delayed", continuous_update=False)
-b = widgets.IntText(description="Delayed", continuous_update=False)
-c = widgets.IntSlider(description="Continuous", continuous_update=True)
-d = widgets.IntText(description="Continuous", continuous_update=True)
 
-widgets.link((a, 'value'), (b, 'value'))
-widgets.link((a, 'value'), (c, 'value'))
-widgets.link((a, 'value'), (d, 'value'))
-widgets.VBox([a,b,c,d])
-```
 
 ## interactive_ouput
+One liner to create a widget output that displays the output of an interactive function. Allows to control the inputs widgets, as it only creates the widget for the output.
+
 ```python
-a = widgets.IntSlider()
-b = widgets.IntSlider()
-c = widgets.IntSlider()
+wa = widgets.IntSlider()
+wb = widgets.IntSlider()
+wc = widgets.IntSlider()
 
 # An HBox lays out its children horizontally
 ui = widgets.HBox([a, b, c])
@@ -175,27 +183,32 @@ def f(a, b, c):
     # output area.
     print((a, b, c))
 
-out = widgets.interactive_output(f, {'a': a, 'b': b, 'c': c})
+out = widgets.interactive_output(f, {'a': wa, 'b': wb, 'c': wc})
 
 display(ui, out)
 ```
 
 
-
 # Layout and styling:
+
 Difference between layout and style : 
+
  - A layout can be shared by multiple different widgets
  - A style is widget-specific
 
 ```python
 from ipywidgets import Button, Layout, ButtonStyle
-my_layout = Layout(width='50%', height='80px', border='2px dotted blue')
+my_layout = Layout(width='50%', height='80px',
+                   border='2px dotted blue')
 my_buttont_style = ButtonStyle(button_color = 'lightgreen')
 b1 = Button(description='(50% width, 80px height) button',
            layout=my_layout,
            style=my_button_style)
 ```
+
+
 ## Layout
+
 A `Layout` object has several attributes that can be object-oriented-changed or initialized at creation like `Layout(width='50%')`.
 
 - Sizes
@@ -245,9 +258,12 @@ A `Layout` object has several attributes that can be object-oriented-changed or 
    - `grid_area`
  
 ## Style
+
 The accessible attribute for a widget-style are in its `keys` attribute : `b2.style.keys`
+
 List of style keys :
- - IntSlider has style keys: `description_width`, `handle_color`
+
+- IntSlider has style keys: `description_width`, `handle_color`
 - FloatSlider has style keys: `description_width`, `handle_color`
 - IntRangeSlider has style keys: `description_width`, `handle_color`
 - FloatRangeSlider has style keys: `description_width`, `handle_color`
@@ -282,8 +298,6 @@ List of style keys :
 - VBox has style keys:
 - Accordion has style keys:
 - Tab has style keys:
-
-
 
 
 # Widgets list
@@ -430,6 +444,7 @@ widgets.FloatText(
 ```
 
 ## Boolean widgets
+
 ### ToggleButton
 ```python
 widgets.ToggleButton(
@@ -769,15 +784,20 @@ TwoByTwoLayout(top_left=Button(description="Top left"),
 ```python
 from ipywidgets import AppLayout, Button, Layout
 header        = Button(description="Header",
-                       layout=Layout(width="auto", height="auto"))
+                       layout=Layout(width="auto",
+                                     height="auto"))
 left_sidebar  = Button(description="Left Sidebar",
-                       layout=Layout(width="auto", height="auto"))
+                       layout=Layout(width="auto",
+                                     height="auto"))
 center        = Button(description="Center",
-                       layout=Layout(width="auto", height="auto"))
+                       layout=Layout(width="auto",
+                                     height="auto"))
 right_sidebar = Button(description="Right Sidebar",
-                       layout=Layout(width="auto", height="auto"))
+                       layout=Layout(width="auto",
+                                     height="auto"))
 footer        = Button(description="Footer",
-                       layout=Layout(width="auto", height="auto"))
+                       layout=Layout(width="auto",
+                                     height="auto"))
 AppLayout(header=header,
           left_sidebar=left_sidebar,
           center=center,
@@ -791,7 +811,8 @@ from ipywidgets import GridspecLayout, Button, Layout
 grid = GridspecLayout(4, 3)
 for i in range(4):
     for j in range(3):
-        grid[i, j] = Button(layout=Layout(width='auto', height='auto'))
+        grid[i, j] = Button(layout=Layout(width='auto',
+                                          height='auto'))
 grid
 ```
 

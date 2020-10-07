@@ -17,6 +17,8 @@
    - Sidecar : https://github.com/jupyter-widgets/jupyterlab-sidecar
    - Ipyvuetify : https://github.com/mariobuikhuizen/ipyvuetify
    - Df reader : https://github.com/finos/perspective
+   - Widget example : https://hub.gke2.mybinder.org/user/geoscixyz-em-apps-orf54c5h/notebooks/index.ipynb
+ 
 
 
 # quickstart 
@@ -32,7 +34,8 @@ Common widget attributes :
 - `disabled`
 - `layout` : a `Layout` object for generic css properties
 - `style` : a widget-specific style object for specific styling
-- `continuous_update` : kwarg to restrict execution on mouse release
+- `continuous_update` : kwarg to restrict execution on mouse release on most sliders and text widget
+
 
 A list of common widget attributes can be found [here](https://github.com/jupyter-widgets/tutorial/blob/master/notebooks/Table_of_widget_keys_and_style_keys.ipynb).
 

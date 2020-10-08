@@ -12,6 +12,7 @@
  - Gridbox model : https://github.com/jupyter-widgets/tutorial/blob/master/notebooks/reference_guides/guide-grid-box.ipynb
  - Building a df-reader tutorial :https://medium.com/analytics-vidhya/python-data-projects-data-analysis-ui-reinforced-by-ipywidgets-d680493464b8
  - List of keys and style_keys:https://github.com/jupyter-widgets/tutorial/blob/master/notebooks/Table_of_widget_keys_and_style_keys.ipynb
+ - Tutorial : https://towardsdatascience.com/bring-your-jupyter-notebook-to-life-with-interactive-widgets-bc12e03f0916
  - Example of widget app :
    - Drawing pad : https://github.com/ocoudray/jupyter-drawing-pad
    - Sidecar : https://github.com/jupyter-widgets/jupyterlab-sidecar
@@ -313,6 +314,7 @@ help_url_base='reference_guides/complete-ipywidgets-widget-list.ipynb'
 list_overview_widget(groups, columns=2,
                      min_width_single_widget=200, help_url_base=help_url_base)
 ```
+Or use : `import ipywidgets as widgets; print(dir(widgets))`
 
 ## Numeric widgets
 ### Intslider

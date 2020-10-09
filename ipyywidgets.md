@@ -139,7 +139,7 @@ def g(x,y):
 
 ## Interactive
 
-By default, interact and interactive call the function for every update of the widgets value. Similar to interact, but returns a widget instead of juste displaying it.
+Similar to interact, but returns a widget instead of juste displaying it.
 
 `w = interactive(f, a=10, b=20)`
 To introspect : 
@@ -148,7 +148,7 @@ To introspect :
 
 ## interact_manual
 
-Option to pass to create a button to update results.
+By default, interact and interactive call the function for every update of the widgets value. Interact_manual is an option to pass to create a button to update results.
 
 ```python
 foo = interactive(slow_function, {'manual': True},

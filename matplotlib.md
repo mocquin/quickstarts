@@ -266,6 +266,67 @@ Ax.annotate(text, (x, y))
 Title to figure
 fig.suptitle('This is a somewhat long figure title', fontsize=16)
 
+# Interactive plotting with matplotlib
+ - interactive matplotlib intro : https://matplotlib.org/3.3.0/users/interactive.html
+ - intro : https://towardsdatascience.com/how-to-produce-interactive-matplotlib-plots-in-jupyter-environment-1e4329d71651
+ - navigation toolbar options : https://matplotlib.org/3.2.1/users/navigation_toolbar.html
+ - example of interactive app : dragging objects, drawing lines, click/release : https://matplotlib.org/3.2.1/users/event_handling.html
+ - example using matplotlib's slider widget : https://riptutorial.com/matplotlib/example/23577/interactive-controls-with-matplotlib-widgets
+ - matplotlib's widget examples : https://matplotlib.org/gallery/index.html#widgets
+ - ipython matplotlib interactive plotting : https://ipython.readthedocs.io/en/stable/interactive/plotting.html
+ - ipython matplotlib magic line : https://ipython.readthedocs.io/en/stable/interactive/magics.html?highlight=magic%20#magic-matplotlib
+ - example cursor/hover using matplotlib's widgets : https://www.youtube.com/watch?v=YobjoBrND4w
+ - great tricks and examples customizing matplotlib's figure's windows : https://github.com/matplotlib/ipympl/blob/master/examples/ipympl.ipynb
+ - tutorial : https://namingcrisis.net/post/2019/03/11/interactive-matplotlib-ipython/
+ 
+ 
+In any case, matplotlib's figures/axes/etc can be customized to look "user-friendly" (see https://github.com/matplotlib/ipympl/blob/master/examples/ipympl.ipynb)
+
+ - In ipython, get current backend : `%matplotlib`  
+ - In python, get current backend : `import matplotlib as mpl;mpl.get_backend()`
+ - In python, to use specific backend : `mpl.use('pdf')`
+ - In ipython, list available backends : `%matplotlib --list`
+ - In default Python prompt : `import matplotlib.pyplot as plt;plt.ion()`  
+ - In jupyterlab, the default backend `inline` is not interactive. To get interactive figures, install the [ipympl](https://github.com/matplotlib/ipympl) backend (based on ipywidget) and enable it with : `%matplotlib widget`
+ - In jupyter notebook, use `%matplotlib notebook`
+ - To disable automatic updating : `plt.ioff()`  
+ - To enable automatic updating : `plt.ion()`  
+ - To see current interactivity : `pyplot.isinteractive()`
+
+Matplotlib also offers basic widgets : 
+
+
+The interactive mode allows : 
+ - zooming
+ - panning
+ - reset view
+ - save as
+ - key-binding, see `rcParams["keymap"]`: 
+   - Home/Reset 	rcParams["keymap.home"] (default: ['h', 'r', 'home'])
+   - Back 	rcParams["keymap.back"] (default: ['left', 'c', 'backspace', 'MouseButton.BACK'])
+   - Forward 	rcParams["keymap.forward"] (default: ['right', 'v', 'MouseButton.FORWARD'])
+   - Pan/Zoom 	rcParams["keymap.pan"] (default: ['p'])
+   - Zoom-to-rect 	rcParams["keymap.zoom"] (default: ['o'])
+   - Save 	rcParams["keymap.save"] (default: ['s', 'ctrl+s'])
+   - Toggle fullscreen 	rcParams["keymap.fullscreen"] (default: ['f', 'ctrl+f'])
+   - Toggle major grids 	rcParams["keymap.grid"] (default: ['g'])
+   - Toggle minor grids 	rcParams["keymap.grid_minor"] (default: ['G'])
+   - Toggle x axis scale (log/linear) 	rcParams["keymap.xscale"] (default: ['k', 'L'])
+   - Toggle y axis scale (log/linear) 	rcParams["keymap.yscale"] (default: ['l'])
+   - Close Figure 	rcParams["keymap.quit"] (default: ['ctrl+w', 'cmd+w', 'q'])
+   - Constrain pan/zoom to x axis 	hold x when panning/zooming with mouse
+   - Constrain pan/zoom to y axis 	hold y when panning/zooming with mouse
+   - Preserve aspect ratio 	hold CONTROL when panning/zooming with mouse
+   
+
+Difference between interactive mode and not-interactive mode : 
+ - interactive mode : 
+   - newly created figures will be displayed immediately
+   - figures will automatically redraw when elements are changed
+   - pyplot.show() displays the figures and immediately returns
+ - not interactive mode : 
+   - newly created figures and changes to figures are not displayed until pyplot.show() is called,  or pyplot.pause() is called, or FigureCanvasBase.flush_events() is called
+   - pyplot.show() runs the GUI event loop and does not return until all the plot windows are closed
 
 
 

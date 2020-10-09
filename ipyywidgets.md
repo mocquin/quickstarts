@@ -1,6 +1,3 @@
-
-
-
 # Ressources
  - Official doc :http://ipywidgets.readthedocs.io/en/latest/index.html
  - Tutorial : https://github.com/jupyter-widgets/tutorial
@@ -13,6 +10,7 @@
  - Building a df-reader tutorial :https://medium.com/analytics-vidhya/python-data-projects-data-analysis-ui-reinforced-by-ipywidgets-d680493464b8
  - List of keys and style_keys:https://github.com/jupyter-widgets/tutorial/blob/master/notebooks/Table_of_widget_keys_and_style_keys.ipynb
  - Tutorial : https://towardsdatascience.com/bring-your-jupyter-notebook-to-life-with-interactive-widgets-bc12e03f0916
+ - Tutorial/intro : https://kapernikov.com/ipywidgets-with-matplotlib/
  - Example of widget app :
    - Drawing pad : https://github.com/ocoudray/jupyter-drawing-pad
    - Sidecar : https://github.com/jupyter-widgets/jupyterlab-sidecar

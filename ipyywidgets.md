@@ -46,67 +46,6 @@ Common widget methods :
  - display widgets : `IPython.display.display(w)`
  - close widgets : `w.close()`
 
-# Linking and observing widgets
-Using link is great if no transformation of the values is needed. observe is useful if some kind of calculation needs to be done with the values or if the values that are related have different types.
-
-## Link
- - to link properties : `mylink = widgets.link((a, 'value'), (b, 'value'))`
- - jslink : javascript-link : `mylink = widgets.jslink((a, 'value'), (b, 'value'))`
- - dlink : directionnal linkg
- - djslink : directionnal java-script side linking
-Remove link with `unlink()` method.
-
-## Observe
-The callback registered must have the signature `handler(change)` where change is a dictionary holding the information about the change. The change has :
-
- - owner : the HasTraits instance
- - old : the old value of the modified trait attribute
- - new : the new value of the modified trait attribute
- - name : the name of the modified trait attribute.
-
-```python
-slider = widgets.FloatSlider(
-    value=7.5,
-    min=5.0,
-    max=10.0,
-    step=0.1,
-    description='Input:',
-)
-
-# Create non-editable text area to display square of value
-square_display = widgets.HTML(description="Square: ",
-                              value='{}'.format(slider.value**2))
-
-# Create function to update square_display's value when slider changes
-def update_square_display(change):
-    square_display.value = '{}'.format(change.new**2)
-    
-slider.observe(update_square_display, names='value')
-
-# Put them in a vertical box
-widgets.VBox([slider, square_display])
-
-```
-
-
-```python
-int_range = widgets.IntSlider()
-output2 = widgets.Output()
-
-display(int_range, output2)
-
-def on_value_change(change):
-    output2.clear_output(wait=True)
-
-    old = change['old']
-    new = change['new']
-
-    with output2:
-        print(f'The value was {old} and is now {new}')
-
-int_range.observe(on_value_change, names='value')
-```
-
 
 # Interact, Interactive, Interactive manual and Interactive output
 
@@ -170,7 +109,6 @@ interact_manual(slow_function,i=widgets.FloatSlider(min=1e4, max=1e6, step=1e4))
 ```
 
 
-
 ## interactive_ouput
 One liner to create a widget output that displays the output of an interactive function. Allows to control the inputs widgets, as it only creates the widget for the output.
 
@@ -190,6 +128,68 @@ def f(a, b, c):
 out = widgets.interactive_output(f, {'a': wa, 'b': wb, 'c': wc})
 
 display(ui, out)
+```
+
+
+# Linking and observing widgets
+Using link is great if no transformation of the values is needed. observe is useful if some kind of calculation needs to be done with the values or if the values that are related have different types.
+
+## Link
+ - to link properties : `mylink = widgets.link((a, 'value'), (b, 'value'))`
+ - jslink : javascript-link : `mylink = widgets.jslink((a, 'value'), (b, 'value'))`
+ - dlink : directionnal linkg
+ - djslink : directionnal java-script side linking
+Remove link with `unlink()` method.
+
+## Observe
+The callback registered must have the signature `handler(change)` where change is a dictionary holding the information about the change. The change has :
+
+ - owner : the HasTraits instance
+ - old : the old value of the modified trait attribute
+ - new : the new value of the modified trait attribute
+ - name : the name of the modified trait attribute.
+
+```python
+slider = widgets.FloatSlider(
+    value=7.5,
+    min=5.0,
+    max=10.0,
+    step=0.1,
+    description='Input:',
+)
+
+# Create non-editable text area to display square of value
+square_display = widgets.HTML(description="Square: ",
+                              value='{}'.format(slider.value**2))
+
+# Create function to update square_display's value when slider changes
+def update_square_display(change):
+    square_display.value = '{}'.format(change.new**2)
+    
+slider.observe(update_square_display, names='value')
+
+# Put them in a vertical box
+widgets.VBox([slider, square_display])
+
+```
+
+
+```python
+int_range = widgets.IntSlider()
+output2 = widgets.Output()
+
+display(int_range, output2)
+
+def on_value_change(change):
+    output2.clear_output(wait=True)
+
+    old = change['old']
+    new = change['new']
+
+    with output2:
+        print(f'The value was {old} and is now {new}')
+
+int_range.observe(on_value_change, names='value')
 ```
 
 

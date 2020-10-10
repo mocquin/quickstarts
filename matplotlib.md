@@ -266,6 +266,11 @@ Ax.annotate(text, (x, y))
 Title to figure
 fig.suptitle('This is a somewhat long figure title', fontsize=16)
 
+# Styles and customizing
+ - Theme examples : http://www.futurile.net/2016/02/27/matplotlib-beautiful-plots-with-style/
+ - Theme examples : https://tonysyu.github.io/raw_content/matplotlib-style-gallery/gallery.html
+ - Customizing and style : https://matplotlib.org/tutorials/introductory/customizing.html
+
 # Interactive plotting with matplotlib
  - interactive matplotlib intro : https://matplotlib.org/3.3.0/users/interactive.html
  - intro : https://towardsdatascience.com/how-to-produce-interactive-matplotlib-plots-in-jupyter-environment-1e4329d71651

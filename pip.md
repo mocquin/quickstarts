@@ -42,6 +42,11 @@ Removing all packages :
 ```
 pip freeze | xargs pip uninstall -y
 ```
+Install from a git repo : 
+```
+pip install git+git://github.com/scikit-learn/scikit-learn@master
+```
+
 
 # What
 [*pip*](https://pip.pypa.io/en/stable/) is a command-line package manager for python packages. It is mostly used to install python packages from the [Python Package Index (PyPI)](https://pypi.org/). 

@@ -17,7 +17,9 @@
    - Ipyvuetify : https://github.com/mariobuikhuizen/ipyvuetify
    - Df reader : https://github.com/finos/perspective
    - Widget example : https://hub.gke2.mybinder.org/user/geoscixyz-em-apps-orf54c5h/notebooks/index.ipynb
- 
+   - Tutorial : https://kapernikov.com/ipywidgets-with-matplotlib/
+   - https://ipython-books.github.io/33-mastering-widgets-in-the-jupyter-notebook/
+
 
 
 # quickstart 
@@ -818,10 +820,6 @@ for i in range(4):
                                           height='auto'))
 grid
 ```
-
-
-
-
 
 
 

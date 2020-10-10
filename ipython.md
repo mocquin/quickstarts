@@ -3,6 +3,7 @@
  - [Tutorial](https://ipython.readthedocs.io/en/stable/interactive/index.html)
  - [Magic functions](https://ipython.readthedocs.io/en/stable/interactive/magics.html)
  - [IPython Cookbook](https://github.com/ipython/ipython/wiki?path=Cookbook)
+ - ipython book : https://ipython-books.github.io/
 
 Launch IPython : in your terminal : 
 ```ipython```

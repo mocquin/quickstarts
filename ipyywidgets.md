@@ -19,6 +19,7 @@
    - Widget example : https://hub.gke2.mybinder.org/user/geoscixyz-em-apps-orf54c5h/notebooks/index.ipynb
    - Tutorial : https://kapernikov.com/ipywidgets-with-matplotlib/
    - https://ipython-books.github.io/33-mastering-widgets-in-the-jupyter-notebook/
+   - https://www.programcreek.com/python/?code=Autodesk%2Fnotebook-molecular-visualization%2Fnotebook-molecular-visualization-master%2Fnbmolviz%2Fwidgets%2Fcomponents.py
 
 
 
@@ -430,6 +431,18 @@ widgets.BoundedIntText(
 )
 ```
 
+### BoundedFloatText
+```python
+widgets.BoundedFloatText(
+    value=7.5,
+    min=0,
+    max=10.0,
+    step=0.1,
+    description='Text:',
+    disabled=False
+)
+```
+
 ### IntText
 ```python
 widgets.IntText(
@@ -617,7 +630,7 @@ widgets.Password(
 
 ### Label
 ```python
-widgets.HBox([widgets.Label(value=r"The $m$ in $E=mc^2$:"), widgets.FloatSlider()])
+widgets.HBox([widgets.Label(value=r'The $m$ in $E=mc^2$:)', widgets.FloatSlider()])
 ```
 
 ### HTML

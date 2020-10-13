@@ -335,6 +335,18 @@ Difference between interactive mode and not-interactive mode :
 
 
 
+ 
+ 
+## backend
+ - Backend doc : https://matplotlib.org/3.3.2/tutorials/introductory/usage.html#backends
+ - What is interactive mode : https://matplotlib.org/3.3.2/tutorials/introductory/usage.html#what-is-interactive-mode
+
+There are two types of backends: user interface backends (for use in pygtk, wxpython, tkinter, qt4, or macosx; also referred to as "interactive backends") and hardcopy backends to make image files (PNG, SVG, PDF, PS; also referred to as "non-interactive backends").There are three ways to configure your backend:
+ - The rcParams["backend"] (default: 'agg') parameter in your matplotlibrc file : backend : qt5agg
+ - The MPLBACKEND environment variable : set MPLBACKEND=qt5agg (on windows)
+ - The function matplotlib.use() : matplotlib.use('qt5agg')
+ 
+
 # Ressources 
  - https://matplotlib.org/gallery/#embedding-matplotlib-in-graphical-user-interfaces 
  - https://github.com/matplotlib/GettingStarted/blob/master/notebooks/06-interactive.ipynb

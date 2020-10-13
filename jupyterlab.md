@@ -1,5 +1,10 @@
 
 
+# alternative IDE to watch
+https://deepnote.com/
+pycharm support : https://towardsdatascience.com/are-you-still-using-jupyterlab-ce1a4339c0a9
+ 
+
 
 
 

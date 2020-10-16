@@ -63,3 +63,38 @@ student6 = Student(2)
 print("Student ID : ", student6.studentId)
 print("Student Name : ", student6.studentName)
 ```
+
+
+# Define new trait from TraitType
+ - https://traitlets.readthedocs.io/en/stable/defining_traits.html
+ 
+TraitType.error(obj, value) is used to say that value is not of type obj.
+ 
+```python
+class TCPAddress(TraitType):
+    """A trait for an (ip, port) tuple.
+
+    This allows for both IPv4 IP addresses as well as hostnames.
+    """
+
+    default_value = ('127.0.0.1', 0)
+    info_text = 'an (ip, port) tuple'
+
+    def validate(self, obj, value):
+        if isinstance(value, tuple):
+            if len(value) == 2:
+                if isinstance(value[0], str) and isinstance(value[1], int):
+                    port = value[1]
+                    if port >= 0 and port <= 65535:
+                        return value
+        self.error(obj, value)
+
+    def from_string(self, s):
+        if self.allow_none and s == 'None':
+            return None
+        if ':' not in s:
+            raise ValueError('Require `ip:port`, got %r' % s)
+        ip, port = s.split(':', 1)
+        port = int(port)
+        return (ip, port)
+```

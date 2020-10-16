@@ -95,7 +95,7 @@ print(type(z))
 # create an encoding function
 def encode_complex(z):
     if isinstance(z, complex):
-        return (z.real, z.imag)
+        return ("__complex__", z.real, z.imag)
     else:
         type_name = z.__class__.__name__
         raise TypeError(f"Object of type '{type_name}' is not JSON serializable")
@@ -111,7 +111,7 @@ Subclassing from JSONEncoder
 class ComplexEncoder(json.JSONEncoder):
     def default(self, z):
         if isinstance(z, complex):
-            return (z.real, z.imag)
+            return ("__complex__", z.real, z.imag)
         else:
             return super().default(z)
 # using the cls arg

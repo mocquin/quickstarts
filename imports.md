@@ -116,6 +116,12 @@ import numpy
 numpy.__file__
 > "/opt/anaconda3/lib/python3.7/site-packages/numpy/__init__.py"
 ```
+## timing imports
+In CLI : `python -X importttime myscript.py`
+To visualiaze results :
+`pip install tuna`
+`python -X importttime myscript.py 2> import.log`
+`tuna import.log`
 
 
 

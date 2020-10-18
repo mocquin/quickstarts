@@ -98,3 +98,6 @@ class TCPAddress(TraitType):
         port = int(port)
         return (ip, port)
 ```
+
+# Usage
+Any class with trait attributes must inherit from HasTraits. For the list of available trait types and their properties, see the Trait Types section of the documentation.

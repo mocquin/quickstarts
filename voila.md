@@ -1,6 +1,6 @@
 # voila
 
-Command line software to turn a notebook into a web page linked to python kernel, allowing python-callback interactions (instead of just static HTML-exported notebook).
+Command line software and jupyterlab extension to turn a notebook into a web page linked to python kernel, allowing python-callback interactions (instead of just static HTML-exported notebook).
 It differs from nbconvert in that the output web application is connected to a Jupyter kernel, allowing it to respond to user input through widget controls and other UI components, while with nbconvert, any action that requires a roundtrip to the kernel will not work.
 
 

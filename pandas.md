@@ -67,6 +67,7 @@ drop based on condition : df.drop(df[df.score < 50].index, inplace=True)
  - `df.shape` : number of row and cols
  - `df[“TCN”].unique()` : List different values
  - `df[“w”].nunique()` : number of unique values
+ - `for col in df: print(f"{col:>30}", df[col].unique())` : list of unique values in all cols 
  - `for index, row in df.iterrows(): print(row['c1'], row['c2'])` : loop over rows
  - `df.values or df.to_numpy()` : get the raw data (without labels) (or` df.to_numpy(copy=True, dtype=float)`)
  

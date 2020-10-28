@@ -101,6 +101,9 @@ Axes helper functions :
 see [this](https://res.cloudinary.com/practicaldev/image/fetch/s--KMJNInQX--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/la33f9zwg65hqjz9j4ee.png)
 
 
+# Imshow
+`matplotlib.pyplot.imshow(X, cmap=”gray”, norm=None, aspect=None, interpolation=None, alpha=None, vmin=None, vmax=None)`
+
 # Artists patches 
 ```python
 # rectangle

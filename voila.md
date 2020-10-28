@@ -15,19 +15,25 @@ Common args :
  - `--theme=dark`: change theme
 
 ## voila jupyterlab extension
+`jupyter labextension install @jupyter-voila/jupyterlab-preview`
 
-Voila jupyterlab extension : display the rendered voila in a side-pane : jupyter labextension install @jupyter-voila/jupyterlab-preview
+2 possibilities : 
+ - display the rendered voila in a side-pane : View -> Render Notebook with Voila
+ - display the rendered voila in a new browser tab : View -> Open Voila in new Browser tab
+
+Also, in notebook toolbar, click on Voila icon to render in new side-pane
+
  
 # Custom templates
-https://github.com/voila-dashboards/voila-gridstack
-https://github.com/voila-dashboards/voila-material
-https://github.com/voila-dashboards/voila-vuetify
+ - https://github.com/voila-dashboards/voila-gridstack
+ - https://github.com/voila-dashboards/voila-material
+ - https://github.com/voila-dashboards/voila-vuetify
  
 # ressources
-https://github.com/voila-dashboards/voila
-https://voila-gallery.org/
-https://voila.readthedocs.io/en/stable/index.html
-https://github.com/voila-dashboards/voila
-https://github.com/voila-dashboards/voila/tree/master/notebooks
-https://blog.jupyter.org/and-voil%C3%A0-f6a2c08a4a93
+ - https://github.com/voila-dashboards/voila
+ - https://voila-gallery.org/
+ - https://voila.readthedocs.io/en/stable/index.html
+ - https://github.com/voila-dashboards/voila
+ - https://github.com/voila-dashboards/voila/tree/master/notebooks
+ - https://blog.jupyter.org/and-voil%C3%A0-f6a2c08a4a93
  

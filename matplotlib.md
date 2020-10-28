@@ -261,10 +261,17 @@ ax4 = fig.add_axes([0.6, 0, 0.5, 0.5])
 
 fig, (ax0, ax1) = plt.subplots(ncols=2, constrained_layout=True)
  
-
-Matplotlib
-Ax.vlines(x, ymin, ymax)
-Ax.annotate(text, (x, y))
+# Text and annotation
+`ax.vlines(x, ymin, ymax)`
+`ax.annotate(text, (x, y))`
+```python
+plt.text(
+    0.5, 0.5,
+    "This will be in the middle of the ax",
+    transform=ax.transAxes,
+    horizontalalgment="center",
+    )
+```
  
 Title to figure
 fig.suptitle('This is a somewhat long figure title', fontsize=16)

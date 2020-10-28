@@ -1,27 +1,28 @@
 
 
 # alternative IDE to watch
-https://deepnote.com/
-pycharm support : https://towardsdatascience.com/are-you-still-using-jupyterlab-ce1a4339c0a9
+ - deepnote : https://deepnote.com/
+ - pycharm : https://towardsdatascience.com/are-you-still-using-jupyterlab-ce1a4339c0a9
  
-
-
-
 
 https://discourse.jupyter.org/t/extension-shows-up-as-both-installed-and-uninstalled-and-doesnt-work/2688/3
 
 
-Jupyterlab startup folder
-: crer un jupyter_notebook_config.py dans le home avec c.NotebookApp.notebook_dir = r”chemin vers startup”
+# Jupyterlab startup folder
+Create a file `jupyter_notebook_config.py` in home with `c.NotebookApp.notebook_dir = r”path_to_startup_file”`
  
-Convertir notebook en script :
--          Jupyter nbconvert –to script .\mon_notebook.ipynb
+
+# nbconvert
+nbconvert is part of the jupyter ecosystem and allows conversion of Notebook into various formats.
+ - convert notebook to latex without code cell : `jupyter nbconvert --to latex --no-input Example.ipynb `
+ - convert notebook to script : `jupyter nbconvert –to script example.ipynb`
+ - convert notebook to html : `jupyter nbconvert –to html example.ipynb`
  
 
 # node
 You migth need to upgrade node
-brew install node
-brew upgrade node
+`brew install node`
+`brew upgrade node`
 
 
 # Toolbox
@@ -35,7 +36,7 @@ jupyter labextensino list
 jupyter labextension update --all
 ```
 
-## curated list
+## curated list of extensions
 see also [https://github.com/mauhai/awesome-jupyterlab](https://github.com/mauhai/awesome-jupyterlab) and [https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/index.html](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/index.html)
 
 My best : 
@@ -51,7 +52,7 @@ My best :
  
 
 # Ressources 
-https://github.com/mauhai/awesome-jupyterlab
-https://github.com/markusschanta/awesome-jupyter#jupyterlab-extensions
-https://github.com/quobit/awesome-python-in-education#jupyter
-https://jupyterlab.readthedocs.io/en/stable/user/extensions.html
+ - https://github.com/mauhai/awesome-jupyterlab
+ - https://github.com/markusschanta/awesome-jupyter#jupyterlab-extensions
+ - https://github.com/quobit/awesome-python-in-education#jupyter
+ - https://jupyterlab.readthedocs.io/en/stable/user/extensions.html

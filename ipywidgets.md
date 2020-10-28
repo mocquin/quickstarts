@@ -20,6 +20,7 @@
    - Tutorial : https://kapernikov.com/ipywidgets-with-matplotlib/
    - https://ipython-books.github.io/33-mastering-widgets-in-the-jupyter-notebook/
    - https://www.programcreek.com/python/?code=Autodesk%2Fnotebook-molecular-visualization%2Fnotebook-molecular-visualization-master%2Fnbmolviz%2Fwidgets%2Fcomponents.py
+   - Graph with bqplot : https://github.com/pbugnion/voila-gallery/blob/master/gaussian-density/index.ipynb
 
 
 

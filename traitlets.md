@@ -4,6 +4,20 @@
  - https://github.com/gclen/python-tutorials/blob/master/tutorials/traitlets.md
  - https://coderzcolumn.com/tutorials/python/traitlets-eventful-classes-in-python
 
+Main objects are : 
+ - Main class : `traitlets.HasTraits` : class to inherit from to define trait-full classes
+ - Builtin trait types : `traitlets.Int`, `traitlets.Unicode`, etc : built-in trait types
+ - Default value : `@traitlets.default("name")` : decortor to define a default value for a trait in a trait-full class
+ - Validation : `@traitlets.validate("studentId")` to define a function to validate change on a attribute
+ - Linking : `bidirectional_link1 = traitlets.link((student12, "studentId"),(sportsman12, "sportsmanId"))` to create a link between attributes of 2 instances
+ - Observe method : `student7.observe(monitor_address_change, names=["studentAddress"])`to define observe on instance
+ - Observe decorator : `traitlets.observe` to define observe inside the class
+```python
+@traitlets.observe("studentAddress", "studentName") # observe 2 attributes
+    def monitor_address_change(self, addr_change_details):
+        # do something
+```
+
 # Concept
 
 Lacks in python : 
@@ -247,6 +261,20 @@ Validation further type-checking can be done through the `validate` decorator :
         return student_id_details["value"]
 ```
 
+# linking
+
+The traitlets package implements a method to link attributes of 2 instances with the `traitlets.link` function. THe function takes 2 tuples : the first tuple contains the first instance and its attribute, and the second tuple conaints the second instanc and its attribute
+
+```python
+bidirectional_link1 = traitlets.link((student12, "studentId"),(sportsman12, "sportsmanId"))
+```
+
+The traitlets package allow implements a directional link, where only the first attribute will change the second but not the other way around : 
+```python
+unidirectional_link1 = traitlets.dlink((student13, "studentId"),(sportsman13, "sportsmanId"))
+```
+
+To destroy a `traitlets.link` or `traitlets.dlink`, use `my_link.unlink`.
 
 # Define new trait from TraitType
  - https://traitlets.readthedocs.io/en/stable/defining_traits.html

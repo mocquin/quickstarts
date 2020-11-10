@@ -36,6 +36,9 @@ jupyter labextensino list
 jupyter labextension update --all
 ```
 
+## Debug installation problems
+https://github.com/jupyterlab/jupyterlab/issues/8122#issuecomment-617209892
+
 ## curated list of extensions
 see also [https://github.com/mauhai/awesome-jupyterlab](https://github.com/mauhai/awesome-jupyterlab) and [https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/index.html](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/index.html)
 

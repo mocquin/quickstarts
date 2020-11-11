@@ -1,41 +1,48 @@
 
-# count unique pair of columns
-d.groupby(['ip', 'useragent']).size()
- 
-my_df.groupby('age')['taille'].mean() : regroupe les lignes par même age, et moyenne les tailles
- 
-# get dropped rows after merging : use outer merge with indicator=True, then print(merged_df[merged _df['_merge'] != 'both'])
- 
- 
- 
-df.rename(columns={'oldName1': 'newName1', 'oldName2': 'newName2'}, inplace=True)
- 
-appiled_df = df.apply(lambda row: function_toto(row["age)"],
-                                                                row['weight']),
-                                                                axis='columns', result_type='expand')
-df = pd.concat([df, appiled_df], axis='columns')
- 
-duplicate in pandas : returns all duplicate rows (except first occurrence)
-duplicateRowsDF = dfObj[dfObj.duplicated()]
-df.loc[:, df.columns != 'b']
- 
-df = df.apply(pd.to_numeric) # convert all columns of DataFrame
-df[["a", "b"]] = df[["a", "b"]].apply(pd.to_numeric)
- 
- 
-plot X Y with colored z : plt.scatter("TSU", "TEMP_EQUIV", c='CN_BANC_TEMPERATURE_CN',data=df)
-Other metdho :
-grouped=df.groupby('type')
-for name, group in grouped:
-  plt.plot(group.day,group.percent)
- 
- 
-drop based on condition : df.drop(df[df.score < 50].index, inplace=True)
- 
+# Common recipies
+ - count unique pair of columns : `d.groupby(['ip', 'useragent']).size()`
+ - group by feature and compute mean : `my_df.groupby('age')['height'].mean()`
+ - get dropped rows after merging : `merged_df[merged _df['_merge'] != 'both']` use outer merge with indicator=True, then print()
+ - rename columns with dict look up : `df.rename(columns={'oldName1': 'newName1', 'oldName2': 'newName2'}, inplace=True)`
+ - apply function to row : `appiled_df = df.apply(lambda row: function_toto(row["age)"], row['weight']), axis='columns', result_type='expand')`
+ - concatenate column-wise : `df = pd.concat([df, appiled_df], axis='columns')`
+ - convert all columns to numeric dtype : `df = df.apply(pd.to_numeric)`
+ - convert some columns to numeric dtype : `df[["a", "b"]] = df[["a", "b"]].apply(pd.to_numeric)`
+ - convert df to dict : `df.set_index(“key for dict”).T.to_dict()`
+ - add columns based on dict lookup : `df['D'] = df['U'].map(d)`
+ - subselection columns : `df[[“A”, “B”, “D”]]` 
+ - inplace drop based on condition : `df.drop(df[df.score < 50].index, inplace=True)`
+ - drop row which contains nan : `df.dropna()`
+ - sorting : `df.sort_values(by=”Age”, inplace=True, ascending=True)`
+ - creation from list of tuples : `df = pd.DataFrame(list_of_tuples, columns =['Name', 'Age', 'Score'])`
+ - read csv like : `pd.read_csv(path, sep=”\t”, skiprows=5, header=None)`
+ - rename columns : `df.columns = [str(i) for I in range(100)]`
+ - convert to csv : `df.to_csv(path, index=False, sep=”;”)`
+ - add columns with values from dict : `for key, value in mon_dict.items():df[key] = value`
+ - returns a groupby object, TCD-like : `df.groupby(by=[« age », “size”, “length”]).mean()`
+ - add arbitrary numerical category to non-numerical data : `df[“data_num_cat”] = df[“data”].target.astype(“category”).cat.codes`
+ - add mean value to all rows [see](https://stackoverflow.com/questions/10373660/converting-a-pandas-groupby-output-from-series-to-dataframe): `Pd.merge(df.groupby(by=”age”).mean().add_prefix(“mean_”).reset_index(), df)` 
+ - drop based on condition : `df.drop(df[df.score < 50].index, inplace=True)`
+ - loop over groups : `for name, sub_df in df.groupy(« age”): print(“for age ==”, name”, sub_df)`
+ - loop over rows : `for index, row in df.iterrows(): print(row['c1'], row['c2'])`
+ - drop last column : `df = df.iloc[:, :-1]`
+ - add columns with index values : `df[« ImageIndex] = np.arange(len(df))`
+ - turn row-series into df : 
+ ```python
+for idx, row in df.iterrows(): df_row = row.to_frame()
+    df_row.columns = [“csv_name”]
+    df_row = df_row.T
+```
+ - Convert columns dtype : To numeric : `df[["a", "b"]] = df[["a", "b"]].apply(pd.to_numeric)`
 
 
+ 
+# Duplicates
+ - returns all duplicate rows (except first occurrence) : `duplicateRowsDF = dfObj[dfObj.duplicated()]`
+ 
 
 # Creation
+
  - serie from list : `S = pd.Series(my_list)`
  - empty dataframe : `df = pd.DataFrame(columns=['A','B','C'])`
  - from numpy array : `pd.DataFrame(data_np_array, index=index_list, columns=[“A”, “B”, “C”])`
@@ -49,12 +56,19 @@ drop based on condition : df.drop(df[df.score < 50].index, inplace=True)
 
 
 # Introspect
+
+
 ## introspect Series
+
+
  - `s.describe()` : return descriptive statistics (min/max/count/mean/std/…)
  - `s.unique()` : list unique values in serie
  - `s.value_counts()` : histogram
 
+
 ## introspect Dataframe  
+
+
  - `df.describe()` : return descriptive statistics (min/max/count/mean/std/…)
  - `df2.dtypes` : data types of cols
  - `df.ndim` 
@@ -73,31 +87,40 @@ drop based on condition : df.drop(df[df.score < 50].index, inplace=True)
  
  
 ## iteration
+
 - iteration over columns : `for col_label, col in df.iteritems(): print(col_label, col, sep='\n', end='\n\n')`
 - iteration over columns : `for col_label, col in df.items(): print(col_label, col, sep='\n', end='\n\n')`
 - iteration over rows : `for row in df.loc[:, ['name', 'city', 'total']].itertuples(): print(row)`
 
 
- 
 # Merge/concat 
+
 Concat and merge are the main functions. Join and append are shortcuts.
 
+
 ## merge
-Use merge when data is relevant for the merging
- - Default merge : how=”inner” : Inner merge : merge columns and only keep rows that appear in both df (intersect columns names, keep rows where the values of these columns overlap)
- - By default, will use all columns name that overlap :  on=None, equivalent to on=[list of all columns names that are in both df”]
- - How=”outer” : keep all rows, adding Nan where values are missing
- - pd.merge(df1, df2, how="left") : keep all rows of left df, and add data to rows that appear in right df (output has same length as left df)
- - Concatenate df col-wise (augment) : pd.merge(left_df, right_df, on='A') (defaults to inner merge)
+
+Use merge when data is relevant for the merging 
+
+ - Default merge : `how=”inner”` : Inner merge : merge columns and only keep rows that appear in both df (intersect columns names, keep rows where the values of these columns overlap)
+ - By default, will use all columns name that overlap : `on=None`, equivalent to `on=[list of all columns names that are in both df]`
+ - `How=”outer”` : keep all rows, adding `nan` where values are missing
+ - `pd.merge(df1, df2, how="left")` : keep all rows of left df, and add data to rows that appear in right df (output has same length as left df)
+ - Concatenate df col-wise (augment) : `pd.merge(left_df, right_df, on='A')` (defaults to inner merge)
+
 
 ## concatenate
-merge df without comparing data
+
+
+Merge df without comparing data
+
  - Concatenate df row-wise (pile): `pd.concat([df1, df2])`, equivalent to axis=0
  - Concatenate df column-wise (augment) : `pdf.concat([df1, df2], axis=1)`
- - Ignore_index=False by default will keep index from both df. Ignore_index=True will create new index for output df
- - Join=”outer” by default will keep all data and fill missing with nan. Join=’inner” will only keep columns that appear in both df
+ - `ignore_index=False` by default will keep index from both df. `ignore_index=True` will create new index for output df
+ - `join=”outer”` by default will keep all data and fill missing with nan.`join=’inner”` will only keep columns that appear in both df
   
 ## other tools for merging
+
  - Join : `on=None` by default will join index-wise
  - `df1.join(df2)` : augment column-wise
  - If some columns have same name, use suffix to explicitly precise which is from where :`df1.join(df2, lsuffix=”_x”)`
@@ -105,7 +128,10 @@ merge df without comparing data
  
 
 # Subselection
+
+
 ## subselection based on values
+
  - Select single cols : `df[“A”]`
  - Select rows : `df[0:3]`
  - Select multiple cols : `df.loc[:, ['A', 'B']]`
@@ -119,6 +145,7 @@ merge df without comparing data
 
 
 ## subselection based on index
+
  - Select rows by index : `df.iloc[3]`
  - Select rows and cols by index : `df.iloc[3:5, 0:2]`
  - Select single value based on index : `df.iat[1, 1]` (equivalent to `df.iloc[1, 1]`)
@@ -128,6 +155,7 @@ merge df without comparing data
 
 
 ## subselection boolean based on condition
+
  - Numerical value on all df: `df[df > 0]`
  - Numerical value on col : `df[df['A'] > 0]`
  - Select specific values : `df2[df2['E'].isin(['two', 'four'])]` (select rows where “E” col equals two or four)
@@ -137,12 +165,10 @@ merge df without comparing data
 
 
 
-# Sorting
- - `df.sort_index(axis=1, ascending=False)` : sort data by columns name
- - `df.sort_values(by='B')` : sort data by columns values
 
  
 # Add/Delete/Modify
+
 - dtypes : `df_ = df.astype(dtype={'age': np.int32, 'py-score': np.float32})`
 - rows 
  - `df = df.append(pd.Series(data=['John', 'Boston', 34, 79], index=df.columns, name=17)`
@@ -166,12 +192,16 @@ merge df without comparing data
 
 
 # Sorting
-- df.sort_values(by='js-score', ascending=False)
-- df.sort_values(by=['total', 'py-score'], ascending=[False, False])
-- df.sort_values(by=['total', 'py-score'], ascending=[False, False], inplace=True)
+
+ - `df.sort_values(by='js-score', ascending=False)`
+ - `df.sort_values(by=['total', 'py-score'], ascending=[False, False])`
+ - `df.sort_values(by=['total', 'py-score'], ascending=[False, False], inplace=True)`
+ - `df.sort_index(axis=1, ascending=False)` : sort data by columns name
+ - `df.sort_values(by='B')` : sort data by columns values
 
  
 # Missing data
+
 - exclude or include NaNs : `skipna=False`
 - replace missing data with value : `df.fillna(value=0)`
 - replace missing data with value of preceding row : `df.fillna(method='ffill')`
@@ -182,7 +212,9 @@ merge df without comparing data
 
  
 # Plotting
+
 ## basic plots
+
  - histogram a Serie : `boston_df['AGE'].plot.hist(bins=10)`
  - plot a df : `df.plot()`
  - `df.plot(x ='Unemployment_Rate', y='Stock_Index_Price', kind = 'scatter')` #line, bar
@@ -191,8 +223,11 @@ merge df without comparing data
  - `df.boxplot(by ='day', column =['total_bill', 'discount'])`
  - `temp.plot().get_figure().savefig('temperatures.png')`
  - `df.loc[:, ['py-score', 'total']].plot.hist(bins=5, alpha=0.4)` : overlay histrograms
+ - plot X Y with colored z : `plt.scatter("age", "weigh", c='country',data=df)`
+
 
 ## multi 2d plots
+
  - plot scatter matrix : `pd.plotting.scatter_matrix(df)`
  - heatmap correlation matrix : `sns.heatmap(df.corr(), annot=True)`
  
@@ -201,6 +236,7 @@ merge df without comparing data
 ## Helper functions
 
 ### plots y(x) for zs
+
 ```python
 def plot_xyz(x, y, z, df):
     y_min = min(df[y])
@@ -219,7 +255,9 @@ def plot_xyz(x, y, z, df):
 
 
 # interactive pandas
+
 ## using ipywidgets
+
 [source](https://towardsdatascience.com/interactive-controls-for-jupyter-notebooks-f5c94829aee6)
 ```python
 import ipywidgets as widgets
@@ -264,48 +302,16 @@ def scatter_plot(x=list(df.select_dtypes('number').columns),
 
 ```
 
-ressources : 
+# ressources : 
 https://towardsdatascience.com/interactive-controls-for-jupyter-notebooks-f5c94829aee6
 
 
 
-Pandas :
-# Convert df to dict
-Df.set_index(“key for dict”).T.to_dict()
-# Add columns based on dict lookup
-df['D'] = df['U'].map(d)
-# Subselection columns
-Df[[“A”, “B”, “D”]]
-# inplace drop based on condition
-df.drop(df[df.score < 50].index, inplace=True)
-# drop row which contains nan
-Df.dropna()
-# sorting
-Df.sort_values(by=”Age”, inplace=True, ascending=True)
-# Creation from list of tuples
-df = pd.DataFrame(list_of_tuples, columns =['Name', 'Age', 'Score'])
- 
-# read csv like
-Pd.read_csv(path, sep=”\t”, skiprows=5, header=None)
-# rename columns
-Df.columns = [str(i) for I in range(100)]
+
  
 # see melt, unstack, explode
 Df.melt()
 Df.melt(“x”)
 
 
-Convert to csv :
-Df.to_csv(path, index=False, sep=”;”)
- 
- 
- 
-Add columns with values from dict :
-For key, value in mon_dict.items():
-            Df[key] = value
-            
-Df.groupby(by=[« age », “size”, “length”]).mean() : : returns a groupby object, TCD-like
-Add arbitrary numerical category to non-numerical data : df[“data_num_cat”] = df[“data”].target.astype(“category”).cat.codes
-Add mean value to all rows : https://stackoverflow.com/questions/10373660/converting-a-pandas-groupby-output-from-series-to-dataframe
-Pd.merge(df.groupby(by=”age”).mean().add_prefix(“mean_”).reset_index(), df)
  

@@ -1,4 +1,5 @@
 # Ressources
+
  - Official doc :http://ipywidgets.readthedocs.io/en/latest/index.html
  - Tutorial : https://github.com/jupyter-widgets/tutorial
  - Gitter lobby : https://gitter.im/jupyter-widgets/Lobby
@@ -23,11 +24,11 @@ Example of widget app :
  - Ipyvuetify : https://github.com/mariobuikhuizen/ipyvuetify
  - Perspective : DataFrame explorer : https://github.com/finos/perspective
  - Quickviz : dataframe plotter : https://github.com/chmduquesne/quickviz
- - Graph with bqplot : https://github.com/pbugnion/voila-gallery/blob/master/gaussian-density/index.ipynb
  - Matplotlib interactive plotting : https://github.com/ianhi/mpl-interactions
  - CCD reducer : https://github.com/mwcraig/reducer
  - geoscixyz : https://github.com/geoscixyz/em-apps
  - molecule visualisation : https://github.com/Autodesk/notebook-molecular-visualization
+ - ipycanvas : https://github.com/martinRenou/ipycanvas
 
  
 Basic examples/tutorials : 
@@ -36,10 +37,7 @@ Basic examples/tutorials :
  - variable inspector with class implementation : https://github.com/jupyter-widgets/ipywidgets/blob/51322341d4f6d88449f9dbf6d538c60de6d23543/docs/source/examples/Variable%20Inspector.ipynb
  - df plotter :  
 https://stackoverflow.com/questions/41667397/interactive-boxplot-with-pandas-and-jupyter-notebook 
- 
-
- 
-
+ - graph with bqplot : https://github.com/pbugnion/voila-gallery/blob/master/gaussian-density/index.ipynb
 
 
 # quickstart 
@@ -958,4 +956,13 @@ for button : `button._click_handlers.callbacks = []`
 
 
  
- 
+# Make class work with custom class
+When using interact, the object is tried to be cast into a widget with `widget_from_abbrev` https://github.com/jupyter-widgets/ipywidgets/blob/fcadca8fbdc18ef1d8dc5694e8e6e759af6c7749/ipywidgets/widgets/interaction.py#L310-L311
+If the passed object is a "single value" : https://github.com/jupyter-widgets/ipywidgets/blob/fcadca8fbdc18ef1d8dc5694e8e6e759af6c7749/ipywidgets/widgets/interaction.py#L326
+Only few objects are accepted : https://github.com/jupyter-widgets/ipywidgets/blob/fcadca8fbdc18ef1d8dc5694e8e6e759af6c7749/ipywidgets/widgets/interaction.py#L346
+including Real and Integral from numbers
+min/max/value init would work if basic numeric operations are implemented
+https://github.com/jupyter-widgets/ipywidgets/blob/fcadca8fbdc18ef1d8dc5694e8e6e759af6c7749/ipywidgets/widgets/interaction.py#L96
+
+I was able to inherit from numbers.Real override abs-methods, but then the computation of min/max/value fails because of comparison to 0 and/or addition to 1
+Easiest would be to add an elif statement and handle custom here.

@@ -10,17 +10,35 @@
  - Building a df-reader tutorial :https://medium.com/analytics-vidhya/python-data-projects-data-analysis-ui-reinforced-by-ipywidgets-d680493464b8
  - List of keys and style_keys:https://github.com/jupyter-widgets/tutorial/blob/master/notebooks/Table_of_widget_keys_and_style_keys.ipynb
  - Tutorial : https://towardsdatascience.com/bring-your-jupyter-notebook-to-life-with-interactive-widgets-bc12e03f0916
- - Tutorial/intro : https://kapernikov.com/ipywidgets-with-matplotlib/
- - Example of widget app :
-   - Drawing pad : https://github.com/ocoudray/jupyter-drawing-pad
-   - Sidecar : https://github.com/jupyter-widgets/jupyterlab-sidecar
-   - Ipyvuetify : https://github.com/mariobuikhuizen/ipyvuetify
-   - Df reader : https://github.com/finos/perspective
-   - Widget example : https://hub.gke2.mybinder.org/user/geoscixyz-em-apps-orf54c5h/notebooks/index.ipynb
-   - Tutorial : https://kapernikov.com/ipywidgets-with-matplotlib/
-   - https://ipython-books.github.io/33-mastering-widgets-in-the-jupyter-notebook/
-   - https://www.programcreek.com/python/?code=Autodesk%2Fnotebook-molecular-visualization%2Fnotebook-molecular-visualization-master%2Fnbmolviz%2Fwidgets%2Fcomponents.py
-   - Graph with bqplot : https://github.com/pbugnion/voila-gallery/blob/master/gaussian-density/index.ipynb
+ - Low level widget tutorial : https://github.com/jupyter-widgets/ipywidgets/blob/master/docs/source/examples/Widget%20Low%20Level.ipynb
+ - Tutorial/intro : 
+   - intro, with class wrapping : https://kapernikov.com/ipywidgets-with-matplotlib/
+   - intro : https://ipython-books.github.io/33-mastering-widgets-in-the-jupyter-notebook/
+
+
+Example of widget app :
+
+ - Drawing pad : https://github.com/ocoudray/jupyter-drawing-pad
+ - Sidecar : https://github.com/jupyter-widgets/jupyterlab-sidecar
+ - Ipyvuetify : https://github.com/mariobuikhuizen/ipyvuetify
+ - Perspective : DataFrame explorer : https://github.com/finos/perspective
+ - Quickviz : dataframe plotter : https://github.com/chmduquesne/quickviz
+ - Graph with bqplot : https://github.com/pbugnion/voila-gallery/blob/master/gaussian-density/index.ipynb
+ - Matplotlib interactive plotting : https://github.com/ianhi/mpl-interactions
+ - CCD reducer : https://github.com/mwcraig/reducer
+ - geoscixyz : https://github.com/geoscixyz/em-apps
+ - molecule visualisation : https://github.com/Autodesk/notebook-molecular-visualization
+
+ 
+Basic examples/tutorials : 
+
+ - gpx viewer : https://github.com/jtpio/voila-gpx-viewer/blob/master/app.ipynb
+ - variable inspector with class implementation : https://github.com/jupyter-widgets/ipywidgets/blob/51322341d4f6d88449f9dbf6d538c60de6d23543/docs/source/examples/Variable%20Inspector.ipynb
+ - df plotter :  
+https://stackoverflow.com/questions/41667397/interactive-boxplot-with-pandas-and-jupyter-notebook 
+ 
+
+ 
 
 
 
@@ -75,6 +93,12 @@ As decorator :
 @interact(x=True,y=1.0)
 def g(x,y):
     return (x,y)
+```
+
+```python
+@widgets.interact(w=(0, 10, 1), amp=(0, 4, .1), phi=(0, 2*np.pi+0.01, 0.01))
+def sin(w, amp, phi):
+    pass
 ```
 
 
@@ -144,6 +168,7 @@ Using link is great if no transformation of the values is needed. observe is use
 Remove link with `unlink()` method.
 
 ## Observe
+The observe method of a widget allows callbacks when one of its attributes is changed. The observed attribute may be anything : `value`, but also `min` or `max` of a slider for eg.
 The callback registered must have the signature `handler(change)` where change is a dictionary holding the information about the change. The change has :
 
  - owner : the HasTraits instance
@@ -193,8 +218,17 @@ def on_value_change(change):
 
 int_range.observe(on_value_change, names='value')
 ```
-
-
+For `Button`, a `on_click` method can be set : 
+```python
+btn.on_click(func)
+```
+Or as decorator :
+```python 
+@btn.on_click
+def plot_on_click(b):
+    plot2()
+```
+    
 # Layout and styling:
 
 Difference between layout and style : 
@@ -231,7 +265,7 @@ A `Layout` object has several attributes that can be object-oriented-changed or 
    - `overflow_x` (deprecated in 7.5, use overflow instead)
    - `overflow_y` (deprecated in 7.5, use overflow instead)
 - Box model
-   - `border`
+   - `border` ("solid red")
    - `margin` or margin = « 100px 240px 0px 9px » for top, right bottom left
    - `padding`
 - Positioning
@@ -854,10 +888,74 @@ fig, ax = plt.subplots();
 ipywidgets.interact(lambda i:ax.imshow(data[i]), i=ipywidgets.IntSlider(min=0, max=np.shape(data)[0]-1, step=1, value=0));
 ```
 
+
  
-https://stackoverflow.com/questions/41667397/interactive-boxplot-with-pandas-and-jupyter-notebook
  
+# Widget creation
  
+ - Building custom widget
+  - Run this in classic notebook : https://ipywidgets.readthedocs.io/en/stable/examples/Widget%20Custom.html#Other-traitlet-types
+  - https://jupyterlab.readthedocs.io/en/latest/developer/extension_tutorial.html#improve-the-widget-behavior
+  - usefull repo : https://github.com/ianhi/custom-ipywidget-howto
+  - official custom tutorial : https://github.com/jupyter-widgets/ipywidgets/pull/2919
+  - https://github.com/jupyter-widgets/ipywidgets/blob/master/docs/source/examples/Widget%20Low%20Level.ipynb
+  - https://github.com/jupyter-widgets/ipywidgets/blob/a1c3bd8f4abc4fd91757bf015c231c2e9bea3fc3/docs/source/examples/Widget%20Custom.ipynb 
+
+ 
+Python side : 
+ - create a class that inherits from DOMWidget
+ - in this class, define a _view_module attribute in a Unicode trait that contains the name of the corresponding module that will be written in the javascript side
+ - in this class, define a _view_name attribute in a Unicode trait that contains the name of the corresponding class that will be written in the javascript side.
+ - then, add all the traits you want the widget to hold (count as Int in the example)
+
+Javascript side : 
+```javascript
+// Module definition, importing the @jupyter-widgets/base module
+define('mywidget', ['@jupyter-widgets/base'], function(widgets) {
+    // create a new view (aka class ?) inheriting from widgets.DOMWidgetView
+    var MyWidgetView = widgets.DOMWidgetView.extend({
+        render: function() {
+            MyWidgetView.__super__.render.apply(this, arguments);
+            this._count_changed();
+            this.listenTo(this.model, 'change:count', this._count_changed, this);
+        },
+
+        // method to handle model change
+        _count_changed: function() {
+            // "this.model" ?
+            var old_value = this.model.previous('count');
+            var new_value = this.model.get('count');
+            this.el.textContent = String(old_value) + ' -> ' + String(new_value);
+        }
+    });
+
+    return {
+        MyWidgetView: MyWidgetView
+    }
+});
+```
+To define serializers on the js side : 
+```javascript
+static serializers = _.extend({
+    value: {
+        serialize: serialize_datetime,
+        deserialize: deserialize_datetime
+    }
+}, BaseModel.serializers)
+```
+
+
+# About unobserving
+ - issue on unobserve_all : https://github.com/jupyter-widgets/ipywidgets/issues/1868
+ - issue on unobserve : https://github.com/jupyter-widgets/ipywidgets/issues/2230#issuecomment-478974523
+ - issue on remove on_click for buttons : https://stackoverflow.com/questions/48217458/jupyter-notebook-button-widget-remove-all-click-handlers
+ - issue on trailets : https://github.com/ipython/traitlets/issues/485
+
+To try : 
+for slider : `s_w.unobserve(cb, 'value')`
+for button : `button._click_handlers.callbacks = []`
+ 
+
 
  
  

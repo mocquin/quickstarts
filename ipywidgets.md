@@ -40,6 +40,22 @@ https://stackoverflow.com/questions/41667397/interactive-boxplot-with-pandas-and
  - graph with bqplot : https://github.com/pbugnion/voila-gallery/blob/master/gaussian-density/index.ipynb
 
 
+# Cheatsheet 
+
+ - interact with abbreviation : `interact(3*m)`
+ - interact with widget : `interact(QuantityText(3*m))`
+ - interactive : `w = ipyw.interactive(slow_function, i=qs)`
+ - interactive_output : `out = ipyw.interactive_output(f, {'a': wa, 'b': wb, 'c': wc})`
+ - link : `mylink = ipyw.link((qw1, 'value'), (qw2, 'value'))`
+ - jslink : `mylink = ipyw.jslink((qw1, 'value'), (qw2, 'value'))`
+ - observe : 
+
+```python
+def update_square_display(change):
+    square_display.value = '{}'.format(change.new**2)
+slider.observe(update_square_display, names='value')
+```
+
 # quickstart 
 
 ```python
@@ -105,9 +121,10 @@ def sin(w, amp, phi):
 Similar to interact, but returns a widget instead of juste displaying it.
 
 `w = interactive(f, a=10, b=20)`
+
 To introspect : 
  - w.kwargs
- - w.result
+ - w.result : to get the result of the function (what is returned)
 
 ## interact_manual
 
@@ -161,7 +178,7 @@ Using link is great if no transformation of the values is needed. observe is use
 ## Link
  - to link properties : `mylink = widgets.link((a, 'value'), (b, 'value'))`
  - jslink : javascript-link : `mylink = widgets.jslink((a, 'value'), (b, 'value'))`
- - dlink : directionnal linkg
+ - dlink : directionnal linkg : `mylink = widgets.link((a, 'value'), (b, 'value'))`
  - djslink : directionnal java-script side linking
 Remove link with `unlink()` method.
 
@@ -592,8 +609,6 @@ widgets.SelectionRangeSlider(
 )
 ```
 
-
-
 ### ToggleButtons
 ```python
 widgets.ToggleButtons(
@@ -620,6 +635,7 @@ widgets.SelectMultiple(
 ## String widgets
 
 ### Text
+One-line, fixed size text area : 
 ```python
 widgets.Text(
     value='Hello World',
@@ -630,6 +646,7 @@ widgets.Text(
 ```
 
 ### TextArea
+Multi-line, variable size text area :
 ```python
 widgets.Textarea(
     value='Hello World',
@@ -795,6 +812,12 @@ widgets.GridBox(items, layout=widgets.Layout(grid_template_columns="repeat(3, 10
 ### Accordion
 Note : the container widgets Accordion and Tab update their selected_index attribute when the user changes which accordion or tab is selected
 ```python
+
+accordion = widgets.Accordion(children=[widgets.IntSlider(), widgets.Text()])
+accordion.set_title(0, 'Slider')
+accordion.set_title(1, 'Text')
+accordion
+
 accordion = widgets.Accordion(children=[widgets.IntSlider(), widgets.Text()], titles=('Slider', 'Text'))
 accordion
 ```
@@ -806,7 +829,8 @@ tab_contents = ['P0', 'P1', 'P2', 'P3', 'P4']
 children = [widgets.Text(description=name) for name in tab_contents]
 tab = widgets.Tab()
 tab.children = children
-tab.titles = [str(i) for i in range(len(children))]
+for i in range(len(children)):
+    tab.set_title(i, str(i))
 tab
 ```
 

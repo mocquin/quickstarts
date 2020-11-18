@@ -386,6 +386,31 @@ There are two types of backends: user interface backends (for use in pygtk, wxpy
  - The function matplotlib.use() : matplotlib.use('qt5agg')
  
 
+# Saving figures to file
+
+Pickling (use %matplolib ipympl in jupyterlab) :
+
+```python
+import matplotlib.pyplot as plt
+import pickle
+
+fig, ax =  plt.subplots()
+ax.plot(list(range(1, 100, 10)), 'bo-')
+
+# dumps the figure with pickle
+with open('fig1.pkl', 'wb') as fs:
+    pickle.dump(ax, fs)
+plt.close("all")
+
+
+# load the saved figure as mpl figure
+fig = pickle.load(open('fig1.pkl', 'rb'))
+plt.show()
+
+plt.show()
+```
+
+
 # Ressources 
  - https://matplotlib.org/gallery/#embedding-matplotlib-in-graphical-user-interfaces 
  - https://github.com/matplotlib/GettingStarted/blob/master/notebooks/06-interactive.ipynb

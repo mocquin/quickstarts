@@ -40,7 +40,6 @@ See :
  - https://mpld3.github.io/faq.html
 
 
-
 ### Offline notebook plots : 
 Use "local=True" with mpld3.enable_notebook() and mpld3.display().
 

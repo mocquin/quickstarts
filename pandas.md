@@ -27,6 +27,8 @@
  - loop over rows : `for index, row in df.iterrows(): print(row['c1'], row['c2'])`
  - drop last column : `df = df.iloc[:, :-1]`
  - add columns with index values : `df[« ImageIndex] = np.arange(len(df))`
+ - merge with different columns name : `pd.merge(df1, df2, how='left', left_on=['a1', 'b'], right_on = ['a2','b'])`
+-           
  - turn row-series into df : 
  ```python
 for idx, row in df.iterrows(): df_row = row.to_frame()

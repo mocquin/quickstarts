@@ -27,6 +27,21 @@ You migth need to upgrade node
 
 # Toolbox
 
+## Keyboard shortcuts
+
+ - ALT-W to close tab
+
+To "alt-tab" in jupyterlab, open keyboardshortcut editor and add this to switch tab with "MAJ + space"
+```
+{
+   "command": "tabsmenu:activate-previously-used-tab",
+       "keys": [
+           "Shift Space"
+           ],
+        "selector": "body"
+    },
+```
+
 # extensions
 ## usage
 ```

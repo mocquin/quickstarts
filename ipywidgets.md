@@ -29,6 +29,8 @@ Example of widget app :
  - geoscixyz : https://github.com/geoscixyz/em-apps
  - molecule visualisation : https://github.com/Autodesk/notebook-molecular-visualization
  - ipycanvas : https://github.com/martinRenou/ipycanvas
+ - ipyvolume : https://github.com/maartenbreddels/ipyvolume
+ - pythreejs : https://github.com/jupyter-widgets/pythreejs
 
  
 Basic examples/tutorials : 

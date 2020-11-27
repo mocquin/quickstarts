@@ -9,7 +9,21 @@
  - `mpld3.fig_to_html()` : Output html representation of the figure
  - `mpld3.display()` : Display figure in IPython notebook via the HTML display hook
  - `mpld3.save_html()` : Save a matplotlib figure to an html file
- 
+
+## Tips before plotting
+
+```python
+fig.set_size_inches(18.5, 10.5)
+plt.grid()
+plt.tight_layout()
+```
+
+## Known issues 
+
+ - Not well suited when graphs have lots of data
+ - Axvline/axhline not properly rendered
+ - Markers doesnot scale when zooming
+ - Cant zoom with different x/y factor
 
 ## Offline plots
 
@@ -27,6 +41,7 @@ d3_url='/path/to/mpld3-master/mpld3/js/d3.v5.min.js'
 with open('graph.html', 'w') as fileobj:
     mpld3.save_html(plt.gcf(), fileobj, d3_url=d3_url, mpld3_url=mpld3_url)
 ```
+
 
 ```python
 mpld3.fig_to_html(fig, d3_url=None, mpld3_url=None, no_extras=False, template_type='general', figid=None, use_http=False, **kwargs)[source]

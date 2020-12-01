@@ -36,7 +36,10 @@ for idx, row in df.iterrows(): df_row = row.to_frame()
     df_row = df_row.T
 ```
  - Convert columns dtype : To numeric : `df[["a", "b"]] = df[["a", "b"]].apply(pd.to_numeric)`
-
+ - select numerical columns : `df.select_dtypes(include=np.number)` or `df._get_numeric_data()`
+ - select names of numerical columns : `df.select_dtypes(include=np.number).columns.tolist()`
+ - select categorical columns : `df.select_dtypes(include=['category'])`
+ - select boolean columns : `df.select_dtypes(include=['bool']).columns.tolist()`  
 
  
 # Duplicates
@@ -70,7 +73,7 @@ for idx, row in df.iterrows(): df_row = row.to_frame()
 
 ## introspect Dataframe  
 
-
+ - `df.info()`
  - `df.describe()` : return descriptive statistics (min/max/count/mean/std/…)
  - `df2.dtypes` : data types of cols
  - `df.ndim` 

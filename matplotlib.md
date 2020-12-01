@@ -410,6 +410,7 @@ plt.show()
 plt.show()
 ```
 
+ 
 
 # Ressources 
  - https://matplotlib.org/gallery/#embedding-matplotlib-in-graphical-user-interfaces 
@@ -427,3 +428,8 @@ plt.show()
  - https://github.com/Perishleaf/data-visualisation-scripts/blob/master/matplotlib_init_fig_ax/matplotlib_init_fig_ax.ipynb
  - https://towardsdatascience.com/5-powerful-tricks-to-visualize-your-data-with-matplotlib-16bc33747e05
  - https://towardsdatascience.com/how-to-do-visualization-using-python-from-scratch-651304b5ee7a
+ - https://github.com/rougier/matplotlib-cheatsheet
+ - https://github.com/matplotlib/cheatsheets
+ - https://github.com/rougier/scientific-visualization-book
+ - https://github.com/rougier/matplotlib-tutorial
+ 

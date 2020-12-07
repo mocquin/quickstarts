@@ -1,0 +1,31 @@
+qgrid2
+pandas-profiling
+pivottablejs
+ipywidgets
+quickviz
+voila
+ipympl
+mpl_interactions
+pytexit
+Ipympl
+Mpl_interactions
+Bqplot
+Jupyter-threejs
+seaborn
+Voila
+Jupytext
+Jupyter toc
+mpld3
+Elyra code snippet
+Des themes
+Handcalcs
+Birdseye
+pip install sweetviz
+pandasGUI
+Bamboolib
+qgrid
+Ipysheet
+Pivottablejs
+Snippets
+Sidecar
+https://github.com/man-group/dtale#jupyter-notebook

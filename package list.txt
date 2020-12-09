@@ -29,3 +29,14 @@ Pivottablejs
 Snippets
 Sidecar
 https://github.com/man-group/dtale#jupyter-notebook
+nbdime
+code_formatter
+toc
+quickopen
+sidecar
+sql extension
+celltags
+gotodefinition
+bytecode
+variableinspector
+jupyterlab theme material darker

@@ -3,6 +3,7 @@
 pip help
 pip install numpy==1.0
 pip install numpy>=1.0
+pip download -d /temp
 pip show numpy
 pip show -f numpy
 pip show -v numpy

@@ -48,6 +48,13 @@ Cell magic
 %%markdown
 %%script python2 : will run the content of the cell like a script to python 2
 ```
+
+Usefull ext : 
+```
+%load_ext autoreload
+%autoreload 2   
+```
+
 Others
 ```
 np.array? : display object docstring

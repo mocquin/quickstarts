@@ -41,3 +41,4 @@ bytecode
 variableinspector
 jupyterlab theme material darker
 ipycanvas
+pandasgui

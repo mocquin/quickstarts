@@ -215,6 +215,57 @@ Merge df without comparing data
 - drop missing data row : `dropna()`
 
 
+# Pivot table
+
+```python
+pd.pivot_table(data,
+    values=None,         # values to summup: column to aggregate, optional 
+    index=None,          # index : row-sorting : column, Grouper, array, or list of the previous
+    columns=None,        # columns: col-sorting :column, Grouper, array, or list of the previous
+    aggfunc='mean',      # aggfunc: function to use : function, list of functions, dict, default numpy.mean
+    fill_value=None,     # fill_value: scalar, default None
+    margins=False,       # margins: add totals: bool, default False
+    dropna=True,         # dropna: bool, default True
+    margins_name='All',  # margins_name: str, default ‘All’
+    observed=False       # observed: bool, default False
+)
+```
+
+ - display sum of fares row-sorted by sex, then class :
+```python
+pd.pivot_table(df, 
+               values=['fare'],
+               index=['sex', 'class'],
+               aggfunc=np.sum)
+```
+ - display mean of fares by sex on rows and class on cols : 
+```python
+pd.pivot_table(
+    df, 
+    values=['fare'],
+    index=['sex'],
+    columns=['class'],
+)
+```
+ - display sum of fares and mean of age row-sorted by sex then class :
+```python
+pd.pivot_table(
+    df, 
+    values=['fare', 'age'],
+    index=['sex', 'class'],
+    aggfunc={'fare': np.sum,
+             'age': np.mean})
+```
+ - display mean of fares, and min/max/mean of age, row-sorted by who then class : 
+```python
+pd.pivot_table(
+    df,
+    values=['fare', 'age'],
+    index=['who', 'class'],
+    aggfunc={'fare': np.mean,
+             'age': [min, max, np.mean]})
+```
+ 
  
 # Plotting
 

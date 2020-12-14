@@ -145,12 +145,14 @@ figure():
 -          figsize=plt.figaspect(2.0)
 -          facecolor=(1, 0, 0, .1)
  
-`ax.axhline(0, color='gray', linewidth=2)`   
-`ax.set_xlim([0.5, 4.5])`   
-`ax.set_ylim([-2, 8])`   
-`ax.set_title('A Different Example Axes Title')`   
-`ax.set_ylabel('Y-Axis (changed)')`   
-`ax.set_xlabel('X-Axis (changed)')`   
+```python
+ax.axhline(0, color='gray', linewidth=2)
+ax.set_xlim([0.5, 4.5])
+ax.set_ylim([-2, 8]) 
+ax.set_title('A Different Example Axes Title')
+ax.set_ylabel('Y-Axis (changed)')
+ax.set_xlabel('X-Axis (changed)')
+```
 equivalent to
 `ax.set(xlim=[0.5, 4.5], ylim=[-2, 8], title='An Example Axes',
        ylabel='Y-Axis', xlabel='X-Axis')`
@@ -235,6 +237,8 @@ ax = fig.add_subplot(1, 1, 1)
 
 # Create a figure
 fig = plt.figure()
+
+
 # Create a subplot
 ax = fig.subplots()# Equivalent method
 ax = fig.subplots(1, 1)
@@ -245,11 +249,11 @@ fig = plt.figure()# Add a subplot
 ax = fig.add_axes([0, 0, 0.78, 0.78])
 
 
-
 # Creates just a figure and only one subplot
 ax = plt.subplot()# Equivalent method
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
+
 
 # Creates just a figure and only one subplot
 ```python
@@ -432,4 +436,4 @@ plt.show()
  - https://github.com/matplotlib/cheatsheets
  - https://github.com/rougier/scientific-visualization-book
  - https://github.com/rougier/matplotlib-tutorial
- 
+ - https://www.aosabook.org/en/matplotlib.html : explaination on mpl layers

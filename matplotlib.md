@@ -221,7 +221,46 @@ line = Line2D(x, y)
 ax.add_line(line)
 
 
-
+ 
+Plt.figure()
+Plt.subplot(1, 2, 1)
+Plt.plot(
+Color=
+Marker=
+Markersize=
+Markerfacecolor=
+Markeredge=
+Markeredgewidth=
+ 
+Alpha=
+Lw=
+Ls=
+Plt.title(« « )
+Plt.xlabel(
+Plt.ylabel(
+Plt.tight_layout()
+Plt.bar()
+Plt.box()
+ 
+Fig = plt.figure()
+Axes1 = fig.add_axes([0.1, 0.1, 0.9, 0.9])
+Axes1.set_xlabel()
+Axes1.plot()
+Axes1.set_title()
+Axes1.legend(
+              Loc=0 # find best : 1 upper-left, etc
+)
+Axes1.est_xlim([0,1])
+Axes.grid(True, color=, dashes=(5,2,1)
+Axes.set_facecolor(
+Axes.get_xaxis().set_visible(False)
+Axes1.text()
+Axes.annotate()
+ 
+Fig.save_fig(« toto.png »)
+ 
+Fig, axes = plt.subplots(3, 2)
+Axes[0].plot
 
 # figure creation
 ```python

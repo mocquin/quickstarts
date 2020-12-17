@@ -1,11 +1,9 @@
-
 # Quickstart
 ```python
 import seaborn as sns
 
 sns.set_theme() #palette="magma"
 iris = sns.load_dataset("iris")
-
 
 ```
 
@@ -53,6 +51,13 @@ Objects :
 sns.get_dataset_names()
 # load dataset
 iris_df = sns.load_dataset("iris")
+# load dataset from local data folder
+iris_df = sns.load_dataset(
+    "iris",
+    data_home="/Users/mocquin/documents/datasets"
+)
+# get dataset cache folder
+sns.get_data_home()
 ```
 List of datasets : 
  - anagrams 
@@ -202,6 +207,9 @@ Context sizes : paper < notebook < talk < poster
 (notebook parameters scaled by .8, 1.3, and 1.6, respectively)
 Determined by the dict : 
 
+```python
+# dict of params
+sns.plotting_context()
 {'font.size': 10.0,
  'axes.labelsize': 'medium',
  'axes.titlesize': 'large',
@@ -222,10 +230,6 @@ Determined by the dict :
  'xtick.minor.size': 2.0,
  'ytick.minor.size': 2.0,
  'legend.title_fontsize': None}
-
-```python
-# dict of params
-sns.plotting_context()
 
 sns.set_context("paper")
 sns.set_context("notebook")
@@ -338,6 +342,22 @@ palette_list = ['Accent', 'Accent_r', 'Blues', 'Blues_r', 'BrBG', 'BrBG_r', 'BuG
 ```
 `_r` means reverse
 
+
+## Palette widgets
+
+```python
+sns.choose_light_palette('husl') 
+sns.choose_light_palette('hls')
+sns.choose_light_palette('rgb')
+sns.choose_dark_palette('husl')
+sns.choose_dark_palette('hls')
+sns.choose_dark_palette('rgb')
+sns.choose_cubehelix_palette()
+sns.choose_diverging_palette()
+sns.choose_colorbrewer_palette("sequential") # built in matplotlib
+sns.choose_colorbrewer_palette("diverging") # built in matplotlib
+sns.choose_colorbrewer_palette("qualitative"); # built in matplotlib
+```
 
 # Despine
 ```python

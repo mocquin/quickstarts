@@ -299,7 +299,7 @@ seaborn.set_palette(
 )
 ```
 
-Seaborn color_palette : 
+Seaborn color_palette : Return a list of colors or continuous colormap defining a palette :
 ```python
 sns.color_palette(
     palette=None,  # Name of palette or None to return current palette
@@ -312,9 +312,19 @@ Calling this function with palette=None will return the current matplotlib color
 This function can also be used in a with statement to temporarily set the color cycle for a plot or set of plots.
 
 
+
+
 To plot a palette : 
 ```python
 sns.palplot(sns.color_palette("magma"))
+sns.palplot(sns.hls_palette(10))
+sns.palplot(sns.crayon_palette(["Midnight Blue", "Maroon"]))
+sns.palplot(sns.husl_palette(10))
+sns.palplot(sns.mpl_palette("Set2"))
+sns.palplot(sns.xkcd_palette(["acid green", "adobe"]))
+sns.palplot(sns.blend_palette(["acid green", "adobe"], input="xkcd"))
+```
+
 ``` 
 
 ```python
@@ -343,20 +353,47 @@ palette_list = ['Accent', 'Accent_r', 'Blues', 'Blues_r', 'BrBG', 'BrBG_r', 'BuG
 `_r` means reverse
 
 
-## Palette widgets
+## Palette widgetsa
 
 ```python
+# light palette : 'husl', 'hls', 'rgb'
+# wraps sns.light_palette(color, n, input="hls")`, where  "color" a 3-uple of values (0-1) in rgb, (0-1) in hls, (0-359,0-100,0-100) in husl
 sns.choose_light_palette('husl') 
 sns.choose_light_palette('hls')
 sns.choose_light_palette('rgb')
+# dark palette : 'husl', 'hls', 'rgb'
+# wraps sns.dark_palette(color, n, input="hls")`, where  "color" a 3-uple of values (0-1) in rgb, (0-1) in hls, (0-359,0-100,0-100) in husl
 sns.choose_dark_palette('husl')
 sns.choose_dark_palette('hls')
 sns.choose_dark_palette('rgb')
+# cubehelix : sns.cubehelix_palette(256, start, rot, gamma, hue, light, dark, reverse)
 sns.choose_cubehelix_palette()
+# diverging palette : diverging_palette(h_neg, h_pos, s, l, sep, 256, center)
 sns.choose_diverging_palette()
+# color_palette : 'sequential', 'diverging', 'qualitative'
+# wraps `sns.color_palette(name, n, desat)` : return a 3-uple of floats
 sns.choose_colorbrewer_palette("sequential") # built in matplotlib
+# sequential : ["Greys", "Reds", "Greens", "Blues", "Oranges", "Purples", "BuGn", "BuPu", "GnBu", "OrRd", "PuBu", "PuRd", "RdPu", "YlGn", "PuBuGn", "YlGnBu", "YlOrBr", "YlOrRd"]
+# variants = ["regular", "reverse", "dark"]
 sns.choose_colorbrewer_palette("diverging") # built in matplotlib
+# diverging : ["RdBu", "RdGy", "PRGn", "PiYG", "BrBG", "RdYlBu", "RdYlGn", "Spectral"]
+# variants = ["regular", "reverse"]
 sns.choose_colorbrewer_palette("qualitative"); # built in matplotlib
+# # quantitative : ["Set1", "Set2", "Set3", "Paired", "Accent", "Pastel1", "Pastel2", "Dark2"]
+```
+
+
+## named colors
+
+
+Named colors are the association of a string, the name, and a hex triplet value of rgb color that maps rgb value in % proporitions between 0 and 1
+
+
+```python
+# https://www.w3schools.com/colors/colors_xkcd.asp
+sns.xkcd_rgb # https://blog.xkcd.com/2010/05/03/color-survey-results/
+# https://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors
+sns.crayons
 ```
 
 # Despine

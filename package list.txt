@@ -26,6 +26,7 @@ Bamboolib
 qgrid
 Ipysheet
 Pivottablejs
+pythreejs
 Snippets
 Sidecar
 https://github.com/man-group/dtale#jupyter-notebook
@@ -38,6 +39,7 @@ sql extension
 celltags
 gotodefinition
 bytecode
+ipyvolume
 variableinspector
 jupyterlab theme material darker
 ipycanvas

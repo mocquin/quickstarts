@@ -453,6 +453,63 @@ plt.show()
 plt.show()
 ```
 
+
+
+# 3d plotting with matplotlib
+
+
+## plot_surface
+```python
+from mpl_toolkits.mplot3d import Axes3D
+social_axis = np.linspace(social_min, social_max, 100)
+tv_axis = np.linspace(tv_min, tv_max, 100)
+social_grid, tv_grid = np.meshgrid(social_axis, tv_axis)
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+ax.plot_surface(tv_grid, social_grid, revenues(social_grid, tv_grid))
+ax.plot(tv_y, social_x, linewidth = 5, color = 'r')
+ax.set_xlabel('Number of hours bought')
+ax.set_ylabel('Number of materials bought')
+ax.set_title('Possible ways of spending the budget')
+plt.show()
+```
+
+## imshow and contour
+```python
+
+fig, (ax_l, ax_r) = plt.subplots(1, 2, figsize = (15, 5))
+
+
+social_axis = np.linspace(social_min, social_max, 100)
+tv_axis = np.linspace(tv_max, tv_min, 100)
+social_grid, tv_grid = np.meshgrid(social_axis, tv_axis)
+    
+im = ax_l.imshow(revenues(social_grid, tv_grid), aspect = 'auto', extent=[social_min, social_max, tv_min, tv_max])
+ax_l.plot(social_axis, n_tv(social_axis, 2500), 'r')
+ax_l.set_xlabel('Number of social campaigns bought')
+ax_l.set_ylabel('Number of tv campaigns bought')
+ax_l.set_title('Possible ways of spending the budget')
+
+
+# The contours are showing how the intersection looks like
+
+social_axis = np.linspace(social_min, social_max)
+tv_axis = np.linspace(tv_min, tv_max)
+social_grid, tv_grid = np.meshgrid(social_axis, tv_axis)
+
+im2 = ax_r.contour(revenues(social_grid,tv_grid), extent=[social_min, social_max, tv_min, tv_max])
+ax_r.plot(social_axis, n_tv(social_axis, 2500), 'r')
+ax_r.set_xlabel('Number of social campaings bought')
+ax_r.set_ylabel('Number of tv campaigns bought')
+ax_r.set_title('Possible ways of spending the budget')
+
+plt.colorbar(im,ax=ax_l)
+plt.colorbar(im2,ax=ax_r)
+
+plt.show()
+```
+
  
 
 # Ressources 

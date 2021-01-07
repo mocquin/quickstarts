@@ -22,6 +22,36 @@
  - Create polynome function from coefficients  : `np.poly1d([2, 1])` gives 2\*x +1
 
 
+# Solving
+
+ - Solve linear equation system
+```python
+import numpy as np
+
+# eq1 = Eq( 2 * x +-1 * y, -4)
+# eq2 = Eq( 3 * x +-1 * y, -2)
+ 
+eq1_coefs = [2, -1]
+eq2_coefs = [3, -1]
+cons_coefs = [-4, -2]
+nmat = np.array([eq1_coefs, eq2_coefs])
+cons = np.array(cons_coefs)
+np.linalg.solve(nmat, cons)
+ 
+# other method
+cons = np.array([-4, -2])
+A = np.array([eq1_coefs, eq2_coefs])
+X = np.linalg.inv(A).dot(cons)
+```
+
+
+# 3d plotting
+ - Create a grid for plotting : 
+```python
+xplot = np.outer(np.linspace(-5, 5, 100), np.ones(100))
+yplot = xplot.T
+```
+
 # Nans
 
  - Count nans : `np.coun_nonzero(np.isnan(arr))`

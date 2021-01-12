@@ -8,6 +8,9 @@
 
  - get n highiest values : `x[np.argsort(x)[-n:]]`
 
+# Array
+ - transpose : `np.transpose(0, 2, 1)` to switch axis
+`
 
 # Masked array
 

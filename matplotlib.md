@@ -30,11 +30,19 @@ plt.ion()/off() : activate/deactivate immediately display objects
 
  
 # axes creation
+See : https://qed0711.github.io/plot-planner/
 
  - method 1 : 
 ```python
 fig = plt.figure()
-ax = fig.add_subplot(1,1,1) # make a blank plotting area'
+ax = fig.add_subplot(1,2,2) # row, col, index of returned ax (left to right, top to bottom)
+```
+
+ - method 2 : 
+```python
+fig = plt.figure()
+ax = fig.subplot2grid((nrow, ncol), (irow, icol), rowspan=2, colspan=1)
+# divide figure in nrow/ncol, and return ax starting at irow/icol with span
 ```
 
 
@@ -48,6 +56,14 @@ fig, ax = plt.subplots()
 ```python
 fig, axes = plt.subplots(nrows=2, ncols=2) : where axes is a numpy array of Axes objects
 ```
+
+ - method 4 : 
+```python
+fig = plt.figure()
+fig.add_
+```
+
+
 
 
 # plot and lines

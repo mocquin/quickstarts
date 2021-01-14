@@ -137,6 +137,17 @@ see [this](https://res.cloudinary.com/practicaldev/image/fetch/s--KMJNInQX--/c_l
 # Imshow
 `matplotlib.pyplot.imshow(X, cmap=”gray”, norm=None, aspect=None, interpolation=None, alpha=None, vmin=None, vmax=None)`
 
+```python
+x_ech = np.linspace(0, 1, 101)
+y_ech = x_ech
+m = np.meshgrid(x_ech, y_ech)
+X, Y = m[0], m[1]
+mappable = ax.imshow(func(X, Y), interpolation=None, 
+                          extent=[0, 1, 1, 0]) # to set custom ticks
+ax.set_title("Ratio (ari/geom)")
+cbar = fig.colorbar(mappable, ax=ax, extend='both')
+```
+
 # Artists patches 
 ```python
 # rectangle

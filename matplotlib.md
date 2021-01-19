@@ -63,8 +63,8 @@ fig = plt.figure()
 fig.add_
 ```
 
-
-
+# Axes aspect
+`ax.set_aspect("equal")`
 
 # plot and lines
 

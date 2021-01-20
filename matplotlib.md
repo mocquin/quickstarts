@@ -484,6 +484,32 @@ plt.show()
 
 # 3d plotting with matplotlib
 
+## Vectors
+```python
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
+
+n = np.array([0, 0, 1])
+x, y, z = compute_bases(n)
+
+X = Y = Z = np.zeros(3)
+U, V, W = zip(*(x, y, z))
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.quiver(X, Y, Z, U, V, W)
+
+
+ax.set_xlim([-1, 1])
+ax.set_ylim([-1, 1])
+ax.set_zlim([-1, 1])
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+ax.set_zlabel("z")
+#plt.show()
+```
+
 
 ## plot_surface
 ```python

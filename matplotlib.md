@@ -148,6 +148,22 @@ ax.set_title("Ratio (ari/geom)")
 cbar = fig.colorbar(mappable, ax=ax, extend='both')
 ```
 
+Add text value to imshow
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+x = np.linspace(0, 1)
+y = x
+X, Y = np.meshgrid(x, y)
+geom = np.sqrt(X*Y)
+fig, ax = plt.subplots(1, 1, figsize=(20, 20))
+plt.imshow(geom, interpolation=None)
+for i in range(len(X)):
+    for j in range(len(X)):
+        text = ax.text(j, i, f"{geom[i, j]:.2f}",
+                       ha="center", va="center", color="w", size=6)
+```
+
 # Artists patches 
 ```python
 # rectangle

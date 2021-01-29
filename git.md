@@ -10,6 +10,10 @@ git diff : diff between last commit and current state
 git checkout : check state at specific commit  
 ```
 
+```
+git rev-list --count HEAD : count number of commit on current branch
+```
+
 # Full Command list
 
 ## git add

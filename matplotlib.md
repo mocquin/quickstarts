@@ -164,6 +164,66 @@ for i in range(len(X)):
                        ha="center", va="center", color="w", size=6)
 ```
 
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+ 
+# x has 23 samples, ranging from 0.5 to 11.5
+ech_x = np.linspace(0.5, 11.5, num=23)
+# y has 10 samples, ranging from 12 to 21
+ech_y = np.linspace(12, 21, num=10)
+print(ech_x)
+print(ech_y)
+X, Y = np.meshgrid(ech_x, ech_y)
+Z = X*Y**2
+ 
+# basic imshow : x samples from left to right, y samples from top to bottom
+# ticks are indexes
+plt.imshow(Z)
+# using extent :
+plt.imshow(Z, extent=[np.min(ech_x),
+                     np.max(ech_x),
+                     np.max(ech_y),
+                     np.min(ech_y)])  # extent : left-right-bottom-top
+# will use min value as left of leftest value, and max as right of righest value (aka bouding box of all the ax)
+# using extent with deltas
+# suppose constant sample
+delta_x = ech_x[1] - ech_x[0]
+delta_y = ech_y[1] - ech_y[0]
+plt.imshow(Z, extent=[np.min(ech_x)-delta_x/2,
+                     np.max(ech_x)+delta_x/2,
+                     np.max(ech_y)-delta_y/2,
+                     np.min(ech_y)+delta_y/2],)
+# values are centered on their (x,y) value coordinate
+ 
+# using origin="lower", image origin is bottom-left, to need to change "extent" order (as it is stil  left-right-bottom-top )
+# when using extent and want the center of square to be on int ticks
+plt.imshow(Z, extent=[np.min(ech_x)-delta_x/2,
+                     np.max(ech_x)+delta_x/2,
+                     np.min(ech_y)-delta_y/2,
+                     np.max(ech_y)+delta_y/2],
+      origin="lower")
+ 
+from matplotlib.ticker import FormatStrFormatter
+# using origin="lower", image origin is bottom-left, to need to change "extent" order (as it is stil  left-right-bottom-top )
+# when using extent and want the center of square to be on int ticks
+plt.imshow(Z, extent=[np.min(ech_x)-delta_x/2,
+                     np.max(ech_x)+delta_x/2,
+                     np.min(ech_y)-delta_y/2,
+                     np.max(ech_y)+delta_y/2],
+      origin="lower",
+    )
+# change ticks
+plt.xticks( np.linspace(0.51, 11.51, num=23))
+plt.gca().xaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+plt.yticks( ech_y)
+plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%i'))
+# see also
+# ax.set_xticklabels(labels)
+# ax.set_xticks(locs)
+```
+
 # Artists patches 
 ```python
 # rectangle

@@ -77,7 +77,7 @@ yplot = xplot.T
 
  - Count nans : `np.coun_nonzero(np.isnan(arr))`
  - Drop nan : `arr = arr[np.logical_not(np.isnan(arr))]`
-
+ - Get indices of non nan : `np.argwhere(~np.isnan(arr))`
 
 # Image processing
 

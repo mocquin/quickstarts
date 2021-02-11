@@ -28,6 +28,7 @@
  - drop last column : `df = df.iloc[:, :-1]`
  - add columns with index values : `df[« ImageIndex] = np.arange(len(df))`
  - merge with different columns name : `pd.merge(df1, df2, how='left', left_on=['a1', 'b'], right_on = ['a2','b'])`
+ - change value based on value : `df.loc[df["age"]==10, "age"] = 12`
 -           
  - turn row-series into df : 
  ```python
@@ -234,7 +235,7 @@ pd.pivot_table(data,
  - display sum of fares row-sorted by sex, then class :
 ```python
 pd.pivot_table(df, 
-               values=['fare'],
+               values='fare',
                index=['sex', 'class'],
                aggfunc=np.sum)
 ```
@@ -242,9 +243,9 @@ pd.pivot_table(df,
 ```python
 pd.pivot_table(
     df, 
-    values=['fare'],
-    index=['sex'],
-    columns=['class'],
+    values='fare',
+    index='sex',
+    columns='class',
 )
 ```
  - display sum of fares and mean of age row-sorted by sex then class :
@@ -266,6 +267,11 @@ pd.pivot_table(
              'age': [min, max, np.mean]})
 ```
  
+ To plot pivot table : 
+ ```python
+sns.heatmap(pt, annot=True, xticklabels=True, yticklabels=True)
+sns.heatmap(pt.interpolate(method=”quadratic”), annot=True, xticklabels=True, yticklabels=True)
+```
  
 # Plotting
 

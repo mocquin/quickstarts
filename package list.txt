@@ -44,3 +44,5 @@ variableinspector
 jupyterlab theme material darker
 ipycanvas
 pandasgui
+https://github.com/rossant/ipymd
+nbdime

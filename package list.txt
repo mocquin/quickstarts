@@ -46,3 +46,6 @@ ipycanvas
 pandasgui
 https://github.com/rossant/ipymd
 nbdime
+Itables
+Datatables
+ 

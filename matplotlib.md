@@ -639,6 +639,25 @@ plt.colorbar(im2,ax=ax_r)
 plt.show()
 ```
 
+```python
+X_2d, Y_2d = np.meshgrid(echx, echy)
+Z_2d = func(X_2d, Y_2d)
+from mpl_toolkits import mplot3d
+import matplotlib.cm as cm
+fig = plt.figure()
+ax = fig.add_subplot(121)
+ax3 = fig.add_subplot(122, projection='3d')
+ 
+# 2d imshow
+ax.imshow(Z_2d, cmap=cm.coolwarm)
+# 3d plot
+# ax3.contour(X_2d, Y_2d, Z_2d)
+# ax3.scatter(X_2d, Y_2d, Z_2d)
+surf = ax3.plot_surface(X_2d, Y_2d, Z_2d, cmap=cm.coolwarm,)
+ax3.set_box_aspect(aspect = (1,1,1))
+ax3.set_zlim(0, 1)
+fig.colorbar(surf, shrink=0.5, aspect=5)
+```
  
 
 # Ressources 

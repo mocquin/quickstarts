@@ -224,6 +224,45 @@ plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%i'))
 # ax.set_xticks(locs)
 ```
 
+With contours : 
+```python
+ech_lx = np.linspace(0.5, 1.5, num=11)
+ech_K = np.linspace(10, 100, num=91)
+X, Y = np.meshgrid(ech_lx, ech_K)
+
+def Z_from_XY(x, y):
+    return 2*X*Y**2
+
+Z = Z_from_XY(X, Y)
+
+left = np.min(ech_lx)
+right = np.max(ech_lx)
+bottom = np.min(ech_K)
+top = np.max(ech_K)
+
+fig, ax = plt.subplots()
+mappable = ax.imshow(Z,
+                    origin="lower",
+                    aspect="auto",
+                    extent=[left, right, bottom, top],
+                    )
+# to plot the contour lines
+contours = ax.contour(X, Y, Z, 5, colors='black')
+# to label them
+plt.clabel(contours, inline=True, fontsize=8)
+
+ax.set_xlabel("lx")
+ax.set_ylabel("yK")
+
+#def Y_from_XZ(x, z):
+#    return (z/(2*x))**(1/2)
+#Z_limit = 1.5e4
+#Y_sol = Y_from_XZ(ech_lx, Z_limit)
+#ax.plot(ech_lx, Y_sol)
+
+fig.colorbar(mappable)
+```
+
 # Artists patches 
 ```python
 # rectangle

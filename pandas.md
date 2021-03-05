@@ -1,5 +1,6 @@
 
 # Common recipies
+ - Basic map on condition (ex:string operation) : `def func(age):return "old" if age>99 else "young"; df[“kind”] = df[“age”].map(func)`
  - count unique pair of columns : `d.groupby(['ip', 'useragent']).size()`
  - group by feature and compute mean : `my_df.groupby('age')['height'].mean()`
  - get dropped rows after merging : `merged_df[merged _df['_merge'] != 'both']` use outer merge with indicator=True, then print()

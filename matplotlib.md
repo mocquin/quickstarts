@@ -263,6 +263,68 @@ ax.set_ylabel("yK")
 fig.colorbar(mappable)
 ```
 
+# Imshow with twin ax
+```python
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.ticker import FormatStrFormatter
+
+
+ech_x = np.arange(1, 6.5, step=0.2)
+ech_y = np.linspace(1, 20, num=20)
+
+delta_x = ech_x[1] - ech_x[0]
+delta_y = ech_y[1] - ech_y[0]
+
+Y, X = np.meshgrid(ech_x, ech_y)
+
+def mix(x, y):
+    return 0.5/x**0.5/(y**0.5) #+ np.random.randn()
+
+Z = mix(Y, X)
+#arr = 3*np.random.randn(len(ech_y), len(ech_x))
+#arr += np.abs(np.arange(len(ech_y)).reshape(len(ech_y), -1)*np.cos(np.arange(len(ech_y))/3).reshape(len(ech_y), -1))
+#Z = arr
+Z_mean = np.mean(Z, axis=1)
+Z_mean_n = Z_mean / np.max(Z)
+
+## PLOTTING
+fig, ax = plt.subplots()
+ax2 = ax.twiny()
+
+# plot the mean
+ax2.plot(Z_mean_n, np.arange(1, len(Z_mean_n)+1), "r-o")
+ax2.set_xlim(0, 1)
+ax2.tick_params(axis='x', labelcolor="red")
+ax2.set_xlabel("Mean of Z (%)", color="red")
+
+# plot the imshow
+ax.set_xlim(np.min(ech_x), np.max(ech_x))
+ax.set_ylim(np.min(ech_y), np.max(ech_y))
+ax.yaxis.set_ticks(ech_y)
+ax.yaxis.set_major_formatter(FormatStrFormatter('%.0f'))
+mappable = ax.imshow(
+    Z, 
+    aspect="auto",
+    interpolation=None,
+    extent=[np.min(ech_x) - delta_x/2, # to center data on the samples
+            np.max(ech_x) + delta_x/2,
+            np.min(ech_y) - delta_y/2,
+            np.max(ech_y) + delta_y/2,
+           ],
+    origin="lower", # to have a plot behaviour
+)
+ax.set_ylabel("y(yunit)")
+ax.set_xlabel("x(xunit)")
+cbar = fig.colorbar(mappable, ax=ax)
+cbar.ax.set_ylabel('Z', rotation=270)
+
+
+
+
+```
+
 # Artists patches 
 ```python
 # rectangle
